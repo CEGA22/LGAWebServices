@@ -19,16 +19,13 @@ namespace EZWebServices.Models.Fleet
             var notificationReturn = new FleetNotification();
             var ctr = 0;
 
-            var eecEmployees = new EECEmployee();
-
             if (!line_manager_id.Contains("@"))
             {
                 line_manager_id = line_manager_id + "@kaec.net";
             }
-
+            var eecEmployees = new EECEmployee();
             line_manager_id = eecEmployees.GetEmployeeDetails(line_manager_id)[0].emp_ID;
 
-            var listReturn = new List<FleetRequest>();
             var tempList = new List<FleetRequest>();
 
             using (var con = new MySqlConnection(ConnectionHelper.MyDirectoryConnection()))
@@ -55,6 +52,7 @@ namespace EZWebServices.Models.Fleet
             foreach (var items in tempList)
             {
                 var result = new List<EECEmployee>();
+                result = eecEmployees.GetEmployeeDetails(items.emp_id);
 
                 if (result.Count == 0)
                 {

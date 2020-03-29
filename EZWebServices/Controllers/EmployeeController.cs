@@ -32,5 +32,32 @@ namespace EZWebServices.Controllers
             var eecEmployee = new EECEmployee();
             return eecEmployee.GetDirectReports(empId);
         }
+
+        [AcceptVerbs("GET", "POST")]
+        [HttpGet]
+        [Route("api/ez/employee/manager_centre/{empId}")]
+        public ManagerCentre manager_centre(string empId)
+        {
+            var managerCentre = new ManagerCentre();
+            return managerCentre.GetManagerCentreDetails(empId);
+        }
+
+        [AcceptVerbs("GET", "POST")]
+        [HttpGet]
+        [Route("api/ez/employee/nedap/{empId}")]
+        public NEDAP get_nedap_access(string empId)
+        {
+            var nedap = new NEDAP();
+            return nedap.GetNEDAPAccess(empId);
+        }
+
+        [AcceptVerbs("GET", "POST")]
+        [HttpGet]
+        [Route("api/ez/employee/nedap_access/{empId}")]
+        public NEDAP get_nedap_aeosdb_access(string empId)
+        {
+            var nedap = new NEDAP();
+            return nedap.GetNEDAPAEOSDBAcccess(empId);
+        }
     }
 }

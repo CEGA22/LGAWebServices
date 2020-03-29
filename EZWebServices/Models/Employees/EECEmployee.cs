@@ -162,7 +162,7 @@ namespace EZWebServices.Models.Employees
                 cn.Open();
                 var cmd = cn.CreateCommand();
                 cmd.Parameters.AddWithValue("@Line_Manager_No", lineManagerNo);
-                cmd.CommandText = "SELECT * FROM dbo.Employee_Info_Extended WHERE Line_Manager_No=@Line_Manager_No AND Termination_Date IS NULL AND Emp_ID NOT LIKE '%A%' AND Emp_ID NOT LIKE '%E%' AND Emp_ID NOT LIKE '%R%' AND Emp_ID NOT LIKE '%T%' AND Emp_ID != '5050' AND Emp_ID != '2014'";
+                cmd.CommandText = "SELECT * FROM dbo.Employee_Info_Extended WHERE Line_Manager_No=@Line_Manager_No AND Termination_Date IS NULL AND Emp_ID NOT LIKE '%A%' AND Emp_ID NOT LIKE '%E%' AND Emp_ID NOT LIKE '%R%' AND Emp_ID NOT LIKE '%T%' AND Emp_ID != '5050' AND Emp_ID != '2014' ORDER BY Grade DESC, Hiring_Date ASC";
                 var dr = cmd.ExecuteReader();
                 lisReturn = PopulateReturnList(dr);
             }
@@ -178,7 +178,7 @@ namespace EZWebServices.Models.Employees
                 cn.Open();
                 var cmd = cn.CreateCommand();
                 cmd.Parameters.AddWithValue("@Emp_ID", empId);
-                cmd.CommandText = "SELECT * FROM dbo.Employee_Info_Extended WHERE Line_Manager_No=@Emp_ID AND Termination_Date IS NULL AND Emp_ID NOT LIKE '%A%' AND Emp_ID NOT LIKE '%E%' AND Emp_ID NOT LIKE '%R%' AND Emp_ID NOT LIKE '%T%' AND Emp_ID != '5050' AND Emp_ID != '2014'";
+                cmd.CommandText = "SELECT * FROM dbo.Employee_Info_Extended WHERE Line_Manager_No=@Emp_ID AND Termination_Date IS NULL AND Emp_ID NOT LIKE '%A%' AND Emp_ID NOT LIKE '%E%' AND Emp_ID NOT LIKE '%R%' AND Emp_ID NOT LIKE '%T%' AND Emp_ID != '5050' AND Emp_ID != '2014'  ORDER BY Grade DESC, Hiring_Date ASC";
                 var dr = cmd.ExecuteReader();
                 lisReturn = PopulateReturnList(dr);
             }

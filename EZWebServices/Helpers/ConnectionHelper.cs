@@ -9,6 +9,11 @@ namespace EZWebServices.Helpers
             return ConfigurationManager.ConnectionStrings["BaseConnection"].ToString();
         }
 
+        public static string BaseXConnection()
+        {
+            return ConfigurationManager.ConnectionStrings["BaseXConnection"].ToString();
+        }
+
         public static string MyDirectoryConnection()
         {
             return ConfigurationManager.ConnectionStrings["MyDirectoryConnection"].ToString();
@@ -22,6 +27,11 @@ namespace EZWebServices.Helpers
         public static string HRDBConnection()
         {
             return ConfigurationManager.ConnectionStrings["HRDBConnection"].ToString();
+        }
+
+        public static string AEOSDBConnection()
+        {
+            return ConfigurationManager.ConnectionStrings["AEOSDBConnection"].ToString();
         }
     }
 }
