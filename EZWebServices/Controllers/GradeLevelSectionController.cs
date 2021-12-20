@@ -28,5 +28,15 @@ namespace EZWebServices.Controllers
             var studentRequestService = new GradeLevelSectionRequestService();
             return Ok(studentRequestService.CreateGradeLevelSectionInformation(request));
         }
+
+        // GET: UpdateStudentRequest
+        [AcceptVerbs("GET", "POST")]
+        [HttpPost]
+        [Route("api/lga/gradelevelsection/update_information")]
+        public IHttpActionResult UpdateGradeLevelSectionInformation(GradeLevelSection request)
+        {
+            var studentRequestService = new GradeLevelSectionRequestService();
+            return Ok(studentRequestService.UpdateGradeLevelSectionInformation(request));
+        }
     }
 }

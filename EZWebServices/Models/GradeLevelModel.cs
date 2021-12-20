@@ -9,6 +9,7 @@ namespace EZWebServices.Models
 {
     public class GradeLevelModel
     {
+        public int ID { get; set; }
         public string GradeLevels { get; set; }
 
         public List<GradeLevelModel> GetGradeLevel()
@@ -19,7 +20,7 @@ namespace EZWebServices.Models
             {
                 cn.Open();
                 var cmd = cn.CreateCommand();
-                cmd.CommandText = "SELECT Grade_Level FROM YearLevel";
+                cmd.CommandText = "SELECT * FROM YearLevel";
                 var dr = cmd.ExecuteReader();
                 listReturn = PopulateReturnList(dr);
             }
@@ -37,6 +38,7 @@ namespace EZWebServices.Models
 
                 listReturn.Add(new GradeLevelModel
                 {
+                    ID = int.Parse(dr["ID"].ToString()),
                     GradeLevels = dr["Grade_Level"].ToString(),
                 });
             }

@@ -33,5 +33,28 @@ namespace EZWebServices.Services
                 return false;
             }
         }
+
+        public bool UpdateGradeLevelSectionInformation(GradeLevelSection request)
+        {
+            try
+            {
+                var con = new SqlConnection(ConnectionHelper.LGAConnection());
+                using (SqlCommand cmd = new SqlCommand("UPDATE Section SET Grade_Level = @GradeLevel, SectionName = @SectionName WHERE ID = @ID", con))
+                {
+                    con.Open();
+                    cmd.Parameters.AddWithValue("@ID", request.Id);
+                    cmd.Parameters.AddWithValue("@GradeLevel", request.GradeLevel);
+                    cmd.Parameters.AddWithValue("@SectionName", request.SectionName);
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                    return true;
+                }
+
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
     }
 }
