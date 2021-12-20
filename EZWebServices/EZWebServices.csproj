@@ -35,6 +35,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -170,10 +171,27 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Controllers\AboutController.cs" />
+    <Compile Include="Controllers\ClassRecordController.cs" />
+    <Compile Include="Controllers\ClassScheduleController.cs" />
+    <Compile Include="Controllers\FacultySubjectsController.cs" />
+    <Compile Include="Controllers\GradeLevelController.cs" />
+    <Compile Include="Controllers\GradeLevelSectionController.cs" />
+    <Compile Include="Controllers\GradeLevelRequestController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\FleetController.cs" />
     <Compile Include="Controllers\L8CommuteController.cs" />
+    <Compile Include="Controllers\PaymentSchemeController.cs" />
     <Compile Include="Controllers\ReportItController.cs" />
+    <Compile Include="Controllers\SchoolAccountController.cs" />
+    <Compile Include="Controllers\SchoolRequestController.cs" />
+    <Compile Include="Controllers\StudentBalanceController.cs" />
+    <Compile Include="Controllers\StudentBalanceRequestController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Controllers\StudentRequestController.cs" />
+    <Compile Include="Controllers\SubjectController.cs" />
+    <Compile Include="Controllers\TransactionHistoryController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -181,12 +199,18 @@
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\QRGeneratorHelper.cs" />
     <Compile Include="Helpers\RandomizeHelper.cs" />
+    <Compile Include="Models\About.cs" />
+    <Compile Include="Models\ClassRecord.cs" />
+    <Compile Include="Models\ClassRecordRequest.cs" />
+    <Compile Include="Models\ClassSchedule.cs" />
+    <Compile Include="Models\ClassScheduleRequest.cs" />
     <Compile Include="Models\Employees\DirectReports.cs" />
     <Compile Include="Models\Employees\EECEmployee.cs" />
     <Compile Include="Models\Employees\ManagerCentre.cs" />
     <Compile Include="Models\Employees\NEDAP.cs" />
     <Compile Include="Models\Employees\NonEECEmployee.cs" />
     <Compile Include="Models\Employees\SharesLineManager.cs" />
+    <Compile Include="Models\FacultySubjects.cs" />
     <Compile Include="Models\Fleet\FleetCars.cs" />
     <Compile Include="Models\Fleet\FleetDriver.cs" />
     <Compile Include="Models\Fleet\FleetNotification.cs" />
@@ -194,6 +218,9 @@
     <Compile Include="Models\Fleet\FleetRequestAction.cs" />
     <Compile Include="Models\Fleet\FleetRequestData.cs" />
     <Compile Include="Models\Fleet\FleetTripNature.cs" />
+    <Compile Include="Models\GradeLevelModel.cs" />
+    <Compile Include="Models\GradeLevelRequest.cs" />
+    <Compile Include="Models\GradeLevelSection.cs" />
     <Compile Include="Models\L8Commute\OpenTrips.cs" />
     <Compile Include="Models\L8Commute\OpenTripsData.cs" />
     <Compile Include="Models\L8Commute\Passengers.cs" />
@@ -202,6 +229,8 @@
     <Compile Include="Models\L8Commute\SeatArrangement.cs" />
     <Compile Include="Models\L8Commute\SeatArrangementData.cs" />
     <Compile Include="Models\L8Commute\TripDetails.cs" />
+    <Compile Include="Models\LoginResult.cs" />
+    <Compile Include="Models\PaymentScheme.cs" />
     <Compile Include="Models\ReportIt\ConcernList.cs" />
     <Compile Include="Models\ReportIt\Floors.cs" />
     <Compile Include="Models\ReportIt\FloorsData.cs" />
@@ -213,7 +242,27 @@
     <Compile Include="Models\ReportIt\SegmentsData.cs" />
     <Compile Include="Models\ReportIt\StatusFilter.cs" />
     <Compile Include="Models\ReportIt\SubmitReports.cs" />
+    <Compile Include="Models\SchoolAccount.cs" />
+    <Compile Include="Models\SchoolReuqest.cs" />
+    <Compile Include="Models\StudentAccount.cs" />
+    <Compile Include="Models\LoginRequest.cs" />
+    <Compile Include="Models\StudentBalance.cs" />
+    <Compile Include="Models\StudentBalanceRequest.cs" />
+    <Compile Include="Models\StudentLoginRequest.cs" />
+    <Compile Include="Models\StudentLoginResult.cs" />
+    <Compile Include="Models\StudentRequest.cs" />
+    <Compile Include="Models\Subjects.cs" />
+    <Compile Include="Models\TransactionHistoryRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ClassRecordRequestService.cs" />
+    <Compile Include="Services\ClassScheduleRequestService.cs" />
+    <Compile Include="Services\GradeLevelRequestService.cs" />
+    <Compile Include="Services\GradeLevelSectionRequestService.cs" />
+    <Compile Include="Services\LoginService.cs" />
+    <Compile Include="Services\SchoolRequestService.cs" />
+    <Compile Include="Services\StudentBalanceRequestService.cs" />
+    <Compile Include="Services\StudentRequestService.cs" />
+    <Compile Include="Services\TransactionHistoryRequestService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
@@ -221,6 +270,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -234,7 +284,23 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\About\" />
+    <Folder Include="Views\Authentication\" />
+    <Folder Include="Views\ClassRecord\" />
+    <Folder Include="Views\ClassSchedule\" />
+    <Folder Include="Views\FacultySubjects\" />
+    <Folder Include="Views\GradeLevelRequest\" />
+    <Folder Include="Views\GradeLevel\" />
+    <Folder Include="Views\PaymentScheme\" />
     <Folder Include="Views\ReportIt\" />
+    <Folder Include="Views\SchoolAccount\" />
+    <Folder Include="Views\SchoolRequest\" />
+    <Folder Include="Views\StudentBalanceRequest\" />
+    <Folder Include="Views\StudentBalance\" />
+    <Folder Include="Views\StudentRequest\" />
+    <Folder Include="Views\Student\" />
+    <Folder Include="Views\Subject\" />
+    <Folder Include="Views\TransactionHistory\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -4,6 +4,12 @@ namespace EZWebServices.Helpers
 {
     public class ConnectionHelper
     {
+        public static string LGAConnection()
+        {
+            return ConfigurationManager.ConnectionStrings["LGAConnectdb"].ToString();
+        }
+
+
         public static string BaseConnection()
         {
             return ConfigurationManager.ConnectionStrings["BaseConnection"].ToString();
@@ -33,5 +39,7 @@ namespace EZWebServices.Helpers
         {
             return ConfigurationManager.ConnectionStrings["AEOSDBConnection"].ToString();
         }
+
+
     }
 }
