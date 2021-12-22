@@ -193,6 +193,7 @@
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\StudentRequestController.cs" />
     <Compile Include="Controllers\SubjectController.cs" />
+    <Compile Include="Controllers\SectionsHandledController.cs" />
     <Compile Include="Controllers\SubjectsHandledRequestController.cs" />
     <Compile Include="Controllers\TransactionHistoryController.cs" />
     <Compile Include="Global.asax.cs">
@@ -249,6 +250,7 @@
     <Compile Include="Models\ReportIt\SubmitReports.cs" />
     <Compile Include="Models\SchoolAccount.cs" />
     <Compile Include="Models\SchoolReuqest.cs" />
+    <Compile Include="Models\SectionsHandled.cs" />
     <Compile Include="Models\StudentAccount.cs" />
     <Compile Include="Models\LoginRequest.cs" />
     <Compile Include="Models\StudentBalance.cs" />
@@ -310,6 +312,7 @@
     <Folder Include="Views\StudentRequest\" />
     <Folder Include="Views\Student\" />
     <Folder Include="Views\SubjectHandledRequest\" />
+    <Folder Include="Views\SubjectsHandled\" />
     <Folder Include="Views\Subject\" />
     <Folder Include="Views\TransactionHistory\" />
   </ItemGroup>
