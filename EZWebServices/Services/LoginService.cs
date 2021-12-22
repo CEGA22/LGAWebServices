@@ -59,7 +59,8 @@ namespace EZWebServices.Services
             {
                 cn.Open();
                 var cmd = cn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM StudentAccount WHERE StudentNumber=@StudentNumber AND Password=@Password";
+                cmd.CommandText = "SELECT StudentAccount.ID, StudentAccount.Lastname, StudentAccount.Middlename,StudentAccount.Firstname, StudentAccount.StudentProfile, YearLevel.Grade_Level, Section.SectionName FROM StudentAccount JOIN Students ON StudentAccount.ID = Students.StudentID JOIN Section ON Students.Grade_Level = Section.ID JOIN YearLevel ON Section.Grade_Level = YearLevel.ID WHERE StudentAccount.StudentNumber = @StudentNumber AND StudentAccount.Password = @Password";
+                //SELECT * FROM StudentAccount WHERE StudentNumber = @StudentNumber AND Password = @Password
                 cmd.Parameters.AddWithValue("@StudentNumber", studentrequest.StudentNumber);
                 cmd.Parameters.AddWithValue("@Password", studentrequest.Password);
                 var dr = cmd.ExecuteReader();
@@ -74,7 +75,11 @@ namespace EZWebServices.Services
                             ID = (int)dr["ID"],
                             Firstname = dr["Firstname"].ToString(),
                             Lastname = dr["Lastname"].ToString(),
-                            StudentProfile = (byte[])dr["StudentProfile"]
+                            Middlename = dr["Middlename"].ToString(),
+                            StudentProfile = (byte[])dr["StudentProfile"],
+                            GradeLevel = dr["Grade_Level"].ToString(),
+                            SectionName = dr["SectionName"].ToString()
+
 
                         };
                     }

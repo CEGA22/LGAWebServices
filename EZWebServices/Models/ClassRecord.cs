@@ -39,29 +39,29 @@ namespace EZWebServices.Models
 
         public double WrittenWorkPercentage { get; set; }
 
-        public double TaskPeformance1 { get; set; }
+        public double TaskPerformance1 { get; set; }
 
-        public double TaskPeformance2 { get; set; }
+        public double TaskPerformance2 { get; set; }
 
-        public double TaskPeformance3 { get; set; }
+        public double TaskPerformance3 { get; set; }
 
-        public double TaskPeformance4 { get; set; }
+        public double TaskPerformance4 { get; set; }
 
-        public double TaskPeformance5 { get; set; }
+        public double TaskPerformance5 { get; set; }
 
-        public double TaskPeformance6 { get; set; }
+        public double TaskPerformance6 { get; set; }
 
-        public double TaskPeformance7 { get; set; }
+        public double TaskPerformance7 { get; set; }
 
-        public double TaskPeformance8 { get; set; }
+        public double TaskPerformance8 { get; set; }
 
-        public double TaskPeformance9 { get; set; }
+        public double TaskPerformance9 { get; set; }
 
-        public double TaskPeformance10 { get; set; }
+        public double TaskPerformance10 { get; set; }
 
-        public double TaskPeformanceTotal { get; set; }
+        public double TaskPerformanceTotal { get; set; }
 
-        public double TaskPeformancePercentage { get; set; }
+        public double TaskPerformancePercentage { get; set; }
 
         public double InitialGrade { get; set; }
 
@@ -83,6 +83,7 @@ namespace EZWebServices.Models
 
 
         public List<ClassRecord> GetClassRecordsDetails(int ID)
+        
         {
             var listReturn = new List<ClassRecord>();
 
@@ -131,19 +132,19 @@ namespace EZWebServices.Models
                         WrittenWork10 = (double)dr["WrittenWork10"],
                         WrittenWorkTotal = (double)dr["WrittenWorkTotal"],
                         WrittenWorkPercentage = (double)dr["WrittentWorkPercentage"],
-                        TaskPeformance1 = (double)dr["TaskPerformance1"],
-                        TaskPeformance2 = (double)dr["TaskPerformance2"],
-                        TaskPeformance3 = (double)dr["TaskPerformance3"],
-                        TaskPeformance4 = (double)dr["TaskPerformance4"],
-                        TaskPeformance5 = (double)dr["TaskPerformance5"],
-                        TaskPeformance6 = (double)dr["TaskPerformance6"],
-                        TaskPeformance7 = (double)dr["TaskPerformance7"],
-                        TaskPeformance8 = (double)dr["TaskPerformance8"],
-                        TaskPeformance9 = (double)dr["TaskPerformance9"],
-                        TaskPeformance10 = (double)dr["TaskPerformance10"],
-                        TaskPeformanceTotal = (double)dr["TaskPerformanceTotal"],
-                        TaskPeformancePercentage = (double)dr["TaskPerformancePercentage"],
-                        InitialGrade = int.Parse(dr["InitialGrade"].ToString()),
+                        TaskPerformance1 = (double)dr["TaskPerformance1"],
+                        TaskPerformance2 = (double)dr["TaskPerformance2"],
+                        TaskPerformance3 = (double)dr["TaskPerformance3"],
+                        TaskPerformance4 = (double)dr["TaskPerformance4"],
+                        TaskPerformance5 = (double)dr["TaskPerformance5"],
+                        TaskPerformance6 = (double)dr["TaskPerformance6"],
+                        TaskPerformance7 = (double)dr["TaskPerformance7"],
+                        TaskPerformance8 = (double)dr["TaskPerformance8"],
+                        TaskPerformance9 = (double)dr["TaskPerformance9"],
+                        TaskPerformance10 = (double)dr["TaskPerformance10"],
+                        TaskPerformanceTotal = (double)dr["TaskPerformanceTotal"],
+                        TaskPerformancePercentage = (double)dr["TaskPerformancePercentage"],
+                        InitialGrade = (double)dr["InitialGrade"],
                         QuarterlyGrade = int.Parse(dr["QuarterlyGrade"].ToString()),
                         SubjectName = dr["SubjectName"].ToString(),
                         SchoolYearStart = dr["SchoolYearStart"].ToString(),
@@ -152,7 +153,6 @@ namespace EZWebServices.Models
                         SaveasDraft = int.Parse(dr["SaveasDraft"].ToString()),
                         SaveDraft = int.Parse(dr["SaveDraft"].ToString()),
                         GradingPeriod = int.Parse(dr["GradingPeriod"].ToString()),
-
                     });
                 }
 
@@ -174,7 +174,7 @@ namespace EZWebServices.Models
             {
                 cn.Open();
                 var cmd = cn.CreateCommand();
-                cmd.CommandText = "SELECT distinct StudentAccount.ID, StudentAccount.Lastname, StudentAccount.Firstname,  ClassRecords.WrittenWork1, ClassRecords.WrittenWork2,ClassRecords.WrittenWork3, ClassRecords.WrittenWork4, ClassRecords.WrittenWork5,ClassRecords.WrittenWork6, ClassRecords.WrittenWork7,ClassRecords.WrittenWork8,ClassRecords.WrittenWork9,ClassRecords.WrittenWork10, ClassRecords.WrittenWorkTotal, ClassRecords.WrittentWorkPercentage,ClassRecords.TaskPerformance1,ClassRecords.TaskPerformance2,ClassRecords.TaskPerformance3,ClassRecords.TaskPerformance4,ClassRecords.TaskPerformance5,ClassRecords.TaskPerformance6,ClassRecords.TaskPerformance7,ClassRecords.TaskPerformance8,ClassRecords.TaskPerformance9,ClassRecords.TaskPerformance10,ClassRecords.TaskPerformanceTotal,ClassRecords.TaskPerformancePercentage, ClassRecords.InitialGrade, ClassRecords.QuarterlyGrade, Students.SchoolYearStart, Section.Grade_Level, Subjects.SubjectName, Section.SectionName, ClassRecords.SaveasDraft,ClassRecords.SaveDraft, ClassRecords.GradingPeriod FROM ClassRecords JOIN Students ON ClassRecords.Learnersname = Students.StudentID JOIN StudentAccount ON Students.StudentID = StudentAccount.ID  JOIN Section ON Students.Grade_Level = Section.ID JOIN SectionsHandled ON Section.ID = SectionsHandled.Gradelevel JOIN SchoolAccount ON SectionsHandled.Teacher = SchoolAccount.ID  JOIN SubjectsHandled ON ClassRecords.SubjectsName = SubjectsHandled.Subject JOIN Subjects ON SubjectsHandled.Subject = Subjects.ID WHERE StudentAccount.ID = @ID AND SaveDraft = 1";
+                cmd.CommandText = "SELECT distinct StudentAccount.ID, StudentAccount.Lastname, StudentAccount.Firstname,  ClassRecords.WrittenWork1, ClassRecords.WrittenWork2,ClassRecords.WrittenWork3, ClassRecords.WrittenWork4, ClassRecords.WrittenWork5,ClassRecords.WrittenWork6, ClassRecords.WrittenWork7,ClassRecords.WrittenWork8,ClassRecords.WrittenWork9,ClassRecords.WrittenWork10, ClassRecords.WrittenWorkTotal, ClassRecords.WrittentWorkPercentage,ClassRecords.TaskPerformance1,ClassRecords.TaskPerformance2,ClassRecords.TaskPerformance3,ClassRecords.TaskPerformance4,ClassRecords.TaskPerformance5,ClassRecords.TaskPerformance6,ClassRecords.TaskPerformance7,ClassRecords.TaskPerformance8,ClassRecords.TaskPerformance9,ClassRecords.TaskPerformance10,ClassRecords.TaskPerformanceTotal,ClassRecords.TaskPerformancePercentage, ClassRecords.InitialGrade, ClassRecords.QuarterlyGrade, Students.SchoolYearStart, Section.Grade_Level, Subjects.SubjectName, Section.SectionName, ClassRecords.SaveasDraft,ClassRecords.SaveDraft, ClassRecords.GradingPeriod FROM ClassRecords JOIN Students ON ClassRecords.Learnersname = Students.StudentID JOIN StudentAccount ON Students.StudentID = StudentAccount.ID  JOIN Section ON Students.Grade_Level = Section.ID JOIN SectionsHandled ON Section.ID = SectionsHandled.Gradelevel JOIN SchoolAccount ON SectionsHandled.Teacher = SchoolAccount.ID  JOIN SubjectsHandled ON ClassRecords.SubjectsName = SubjectsHandled.Subject JOIN Subjects ON SubjectsHandled.Subject = Subjects.ID WHERE StudentAccount.ID = @ID";
 
                 //SELECT StudentAccount.ID, StudentAccount.Lastname, StudentAccount.Firstname,  ClassRecords.WrittenWork1, ClassRecords.WrittenWork2,ClassRecords.WrittenWork3, ClassRecords.WrittenWork4, ClassRecords.WrittenWork5,ClassRecords.WrittenWork6, ClassRecords.WrittenWork7,ClassRecords.WrittenWork8,ClassRecords.WrittenWork9,ClassRecords.WrittenWork10, ClassRecords.WrittenWorkTotal, ClassRecords.WrittentWorkPercentage,ClassRecords.TaskPerformance1,ClassRecords.TaskPerformance2,ClassRecords.TaskPerformance3,ClassRecords.TaskPerformance4,ClassRecords.TaskPerformance5,ClassRecords.TaskPerformance6,ClassRecords.TaskPerformance7,ClassRecords.TaskPerformance8,ClassRecords.TaskPerformance9,ClassRecords.TaskPerformance10,ClassRecords.TaskPerformanceTotal,ClassRecords.TaskPerformancePercentage, ClassRecords.InitialGrade, ClassRecords.QuarterlyGrade, Students.SchoolYearStart, Section.Grade_Level, Subjects.SubjectName, Section.SectionName, ClassRecords.SaveasDraft,ClassRecords.SaveDraft, ClassRecords.GradingPeriod FROM ClassRecords JOIN Students ON ClassRecords.Learnersname = Students.StudentID JOIN StudentAccount ON Students.StudentID = StudentAccount.ID  JOIN Section ON Students.Grade_Level = Section.ID JOIN SectionsHandled ON Section.ID = SectionsHandled.Gradelevel JOIN SubjectsHandled ON SectionsHandled.Gradelevel = SubjectsHandled.Grade_Level JOIN SchoolAccount ON SectionsHandled.ID = SchoolAccount.ID JOIN Subjects ON SubjectsHandled.Subject = Subjects.ID WHERE StudentAccount.ID = @ID
                 cmd.Parameters.AddWithValue("@ID", ID);
@@ -215,19 +215,19 @@ namespace EZWebServices.Models
                         WrittenWork10 = (double)dr["WrittenWork10"],
                         WrittenWorkTotal = (double)dr["WrittenWorkTotal"],
                         WrittenWorkPercentage = (double)dr["WrittentWorkPercentage"],
-                        TaskPeformance1 = (double)dr["TaskPerformance1"],
-                        TaskPeformance2 = (double)dr["TaskPerformance2"],
-                        TaskPeformance3 = (double)dr["TaskPerformance3"],
-                        TaskPeformance4 = (double)dr["TaskPerformance4"],
-                        TaskPeformance5 = (double)dr["TaskPerformance5"],
-                        TaskPeformance6 = (double)dr["TaskPerformance6"],
-                        TaskPeformance7 = (double)dr["TaskPerformance7"],
-                        TaskPeformance8 = (double)dr["TaskPerformance8"],
-                        TaskPeformance9 = (double)dr["TaskPerformance9"],
-                        TaskPeformance10 = (double)dr["TaskPerformance10"],
-                        TaskPeformanceTotal = (double)dr["TaskPerformanceTotal"],
-                        TaskPeformancePercentage = (double)dr["TaskPerformancePercentage"],
-                        InitialGrade = int.Parse(dr["InitialGrade"].ToString()),
+                        TaskPerformance1 = (double)dr["TaskPerformance1"],
+                        TaskPerformance2 = (double)dr["TaskPerformance2"],
+                        TaskPerformance3 = (double)dr["TaskPerformance3"],
+                        TaskPerformance4 = (double)dr["TaskPerformance4"],
+                        TaskPerformance5 = (double)dr["TaskPerformance5"],
+                        TaskPerformance6 = (double)dr["TaskPerformance6"],
+                        TaskPerformance7 = (double)dr["TaskPerformance7"],
+                        TaskPerformance8 = (double)dr["TaskPerformance8"],
+                        TaskPerformance9 = (double)dr["TaskPerformance9"],
+                        TaskPerformance10 = (double)dr["TaskPerformance10"],
+                        TaskPerformanceTotal = (double)dr["TaskPerformanceTotal"],
+                        TaskPerformancePercentage = (double)dr["TaskPerformancePercentage"],
+                        InitialGrade = (double)dr["InitialGrade"],
                         QuarterlyGrade = int.Parse(dr["QuarterlyGrade"].ToString()),
                         SubjectName = dr["SubjectName"].ToString(),
                         SchoolYearStart = dr["SchoolYearStart"].ToString(),

@@ -39,35 +39,35 @@ namespace EZWebServices.Models
 
         public double WrittenWorkPercentage { get; set; }
 
-        public double TaskPeformance1 { get; set; }
+        public double TaskPerformance1 { get; set; }
 
-        public double TaskPeformance2 { get; set; }
+        public double TaskPerformance2 { get; set; }
 
-        public double TaskPeformance3 { get; set; }
+        public double TaskPerformance3 { get; set; }
 
-        public double TaskPeformance4 { get; set; }
+        public double TaskPerformance4 { get; set; }
 
-        public double TaskPeformance5 { get; set; }
+        public double TaskPerformance5 { get; set; }
 
-        public double TaskPeformance6 { get; set; }
+        public double TaskPerformance6 { get; set; }
 
-        public double TaskPeformance7 { get; set; }
+        public double TaskPerformance7 { get; set; }
 
-        public double TaskPeformance8 { get; set; }
+        public double TaskPerformance8 { get; set; }
 
-        public double TaskPeformance9 { get; set; }
+        public double TaskPerformance9 { get; set; }
 
-        public double TaskPeformance10 { get; set; }
+        public double TaskPerformance10 { get; set; }
 
-        public double TaskPeformanceTotal { get; set; }
+        public double TaskPerformanceTotal { get; set; }
 
-        public double TaskPeformancePercentage { get; set; }
+        public double TaskPerformancePercentage { get; set; }
 
         public double InitialGrade { get; set; }
 
         public double QuarterlyGrade { get; set; }
 
-        public string SubjectName { get; set; }
+        public int SubjectsName { get; set; }
 
         public string SchoolYearStart { get; set; }
 
