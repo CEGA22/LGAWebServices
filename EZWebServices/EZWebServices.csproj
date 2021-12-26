@@ -184,6 +184,7 @@
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\FleetController.cs" />
     <Compile Include="Controllers\L8CommuteController.cs" />
+    <Compile Include="Controllers\NewsAndAnnouncementsController.cs" />
     <Compile Include="Controllers\PaymentSchemeController.cs" />
     <Compile Include="Controllers\ReportItController.cs" />
     <Compile Include="Controllers\SchoolAccountController.cs" />
@@ -236,6 +237,7 @@
     <Compile Include="Models\L8Commute\SeatArrangementData.cs" />
     <Compile Include="Models\L8Commute\TripDetails.cs" />
     <Compile Include="Models\LoginResult.cs" />
+    <Compile Include="Models\NewsAndAnnouncements.cs" />
     <Compile Include="Models\PaymentScheme.cs" />
     <Compile Include="Models\ReportIt\ConcernList.cs" />
     <Compile Include="Models\ReportIt\Floors.cs" />
@@ -303,6 +305,7 @@
     <Folder Include="Views\GradeLevelHandledRequest\" />
     <Folder Include="Views\GradeLevelRequest\" />
     <Folder Include="Views\GradeLevel\" />
+    <Folder Include="Views\NewsAndAnnouncements\" />
     <Folder Include="Views\PaymentScheme\" />
     <Folder Include="Views\ReportIt\" />
     <Folder Include="Views\SchoolAccount\" />

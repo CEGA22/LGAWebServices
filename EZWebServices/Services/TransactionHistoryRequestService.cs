@@ -30,7 +30,7 @@ namespace EZWebServices.Services
         public int CreateStudentTransactionHistory(TransactionHistoryRequest request)
         {
             decimal studentId = 0;
-            DateTime da = DateTime.Now;
+            //DateTime da = DateTime.UtcNow;
 
             var con = new SqlConnection(ConnectionHelper.LGAConnection());
 
@@ -38,7 +38,7 @@ namespace EZWebServices.Services
             {
                 cmd.Parameters.AddWithValue("@StudentID", request.Studentid);
                 cmd.Parameters.AddWithValue("@Amount", request.Amount);
-                cmd.Parameters.AddWithValue("@DateTime", da);
+                cmd.Parameters.AddWithValue("@DateTime", request.TransactionDate);
                 cmd.Parameters.AddWithValue("@Note", request.Note);
                 con.Open();
 

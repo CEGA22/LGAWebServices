@@ -29,8 +29,7 @@ namespace EZWebServices.Models
             {
                 cn.Open();
                 var cmd = cn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM About";
-                //cmd.Parameters.AddWithValue("@ID", ID);
+                cmd.CommandText = "SELECT * FROM About";               
                 var dr = cmd.ExecuteReader();
                 listReturn = PopulateReturnList(dr);
             }
