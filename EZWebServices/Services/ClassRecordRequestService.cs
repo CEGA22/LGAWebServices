@@ -63,5 +63,31 @@ namespace EZWebServices.Services
 
             }
         }
+
+        public bool UpdateFinalGrade(ClassRecordRequest request)
+        {
+            var date = DateTime.Now;
+            try
+            {
+                var con = new SqlConnection(ConnectionHelper.LGAConnection());
+
+                using (SqlCommand cmd = new SqlCommand("UPDATE FinalGrade SET finalgrade = @finalgrade, average = @average, datemodified = @Datemodified WHERE studentname = @Studentname AND subjectname = @Subjectname", con))                
+                {
+                    cmd.Parameters.AddWithValue("@Studentname", request.studentname);
+                    cmd.Parameters.AddWithValue("@Subjectname", request.subjectname);
+                    cmd.Parameters.AddWithValue("@finalgrade", request.finalgrade);                  
+                    cmd.Parameters.AddWithValue("@average", request.average);
+                    cmd.Parameters.AddWithValue("@Datemodified", date);
+                    con.Open();
+                    cmd.ExecuteScalar();
+                    con.Close();
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
     }
 }

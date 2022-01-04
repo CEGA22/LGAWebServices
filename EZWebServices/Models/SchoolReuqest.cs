@@ -17,6 +17,12 @@ namespace EZWebServices.Models
 
         public string SchoolNumber { get; set; }
 
+        public DateTime Birthday { get; set; }
+
+        public string Address { get; set; }
+
+        public string Email { get; set; }
+
         public string Password { get; set; }
 
         public byte[] TeacherProfile { get; set; }

@@ -30,5 +30,14 @@ namespace EZWebServices.Controllers
             var studentRequestService = new StudentRequestService();
             return Ok(studentRequestService.UpdateStudentInformation(request));
         }
+
+        [AcceptVerbs("GET", "POST")]
+        [HttpPost]
+        [Route("api/lga/student/delete_information/{ID}")]
+        public IHttpActionResult DeleteNewsAndAnnouncement(int ID)
+        {
+            var studentRequestService = new StudentRequestService();
+            return Ok(studentRequestService.DeleteStudentInformation(ID));
+        }
     }
 }

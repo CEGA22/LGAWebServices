@@ -25,7 +25,7 @@ namespace EZWebServices.Models
             {
                 cn.Open();
                 var cmd = cn.CreateCommand();
-                cmd.CommandText = "SELECT Section.ID, YearLevel.Grade_Level, Section.SectionName FROM Section JOIN YearLevel ON Section.Grade_Level = YearLevel.ID";   
+                cmd.CommandText = "SELECT Section.ID,Section.Grade_Level AS 'GradeLevelid', YearLevel.Grade_Level, Section.SectionName FROM Section JOIN YearLevel ON Section.Grade_Level = YearLevel.ID";   
                 var dr = cmd.ExecuteReader();
                 listReturn = PopulateReturnList(dr);
             }
@@ -44,6 +44,7 @@ namespace EZWebServices.Models
                 listReturn.Add(new GradeLevelSection
                 {
                     Id = int.Parse(dr["ID"].ToString()),
+                    GradeLevel = int.Parse(dr["GradeLevelid"].ToString()),
                     GradeLevels = dr["Grade_Level"].ToString(),
                     SectionName = dr["SectionName"].ToString(),                  
                 });

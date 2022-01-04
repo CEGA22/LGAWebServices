@@ -17,6 +17,8 @@ namespace EZWebServices.Models
 
         public string Middlename { get; set; }
 
+        public string Password { get; set; }
+
         public byte[] StudentProfile { get; set; }
 
         public string GradeLevel { get; set; }

@@ -13,6 +13,8 @@ namespace EZWebServices.Models
 
         public int TeacherID { get; set; }
 
+        public string GradeLevel { get; set; }
+
         public int GradeLevelID { get; set; }
 
         public string SectionName { get; set; }
@@ -26,7 +28,7 @@ namespace EZWebServices.Models
             {
                 cn.Open();
                 var cmd = cn.CreateCommand();
-                cmd.CommandText = "SELECT SectionsHandled.ID, SectionsHandled.Teacher, SectionsHandled.Gradelevel, Section.SectionName FROM SectionsHandled JOIN Section ON SectionsHandled.Gradelevel = Section.ID WHERE SectionsHandled.Teacher = @TeacherID";                
+                cmd.CommandText = "SELECT SectionsHandled.ID, SectionsHandled.Teacher, YearLevel.Grade_Level, SectionsHandled.Gradelevel, Section.SectionName FROM SectionsHandled JOIN Section ON SectionsHandled.Gradelevel = Section.ID JOIN YearLevel ON Section.Grade_Level = YearLevel.ID WHERE SectionsHandled.Teacher = @TeacherID";                
                 cmd.Parameters.AddWithValue("@TeacherID", ID);
                 var dr = cmd.ExecuteReader();
                 listReturn = PopulateReturnList(dr);
@@ -48,6 +50,7 @@ namespace EZWebServices.Models
                     {
                         ID = int.Parse(dr["ID"].ToString()),
                         TeacherID = int.Parse(dr["Teacher"].ToString()),
+                        GradeLevel = dr["Grade_Level"].ToString(),
                         GradeLevelID = int.Parse(dr["Gradelevel"].ToString()),
                         SectionName = dr["SectionName"].ToString()
                     });

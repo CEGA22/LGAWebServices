@@ -81,14 +81,14 @@ namespace EZWebServices.Controllers
             return studentAccount.GetClassScheduleStudent(ID);
         }
 
-        // GET: ClassScheduleByWeekDayStudent
-        [AcceptVerbs("GET", "POST")]
-        [HttpGet]
-        [Route("api/lga/classSchedule/get_by_Weekday_Student/{ID}/{weekday}")]
-        public IEnumerable<ClassSchedule> GetClassSchedulesByWeekdayStudent(int ID, string weekday)
-        {
-            var studentAccount = new ClassSchedule();
-            return studentAccount.GetClassScheduleByWeekdayDetailsStudent(ID, weekday);
-        }
+        //// GET: ClassScheduleByWeekDayStudent
+        //[AcceptVerbs("GET", "POST")]
+        //[HttpGet]
+        //[Route("api/lga/classSchedule/get_by_Weekday_Student/{ID}/{weekday}")]
+        //public IEnumerable<ClassSchedule> GetClassSchedulesByWeekdayStudent(int ID, string weekday)
+        //{
+        //    var studentAccount = new ClassSchedule();
+        //    return studentAccount.GetClassScheduleByWeekdayDetailsStudent(ID, weekday);
+        //}
     }
 }

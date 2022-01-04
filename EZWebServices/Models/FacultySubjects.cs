@@ -26,8 +26,7 @@ namespace EZWebServices.Models
                 cn.Open();
                 var cmd = cn.CreateCommand();
                 cmd.CommandText = "SELECT TeacherID, Subjects.SubjectName, YearLevel.Grade_Level, Section.SectionName FROM SubjectsHandled JOIN Subjects ON SubjectsHandled.Subject = Subjects.ID JOIN Section ON SubjectsHandled.Grade_Level = Section.ID JOIN YearLevel ON Section.Grade_Level = YearLevel.ID WHERE TeacherID = @ID";
-
-               
+                
                 cmd.Parameters.AddWithValue("@ID", ID);
                 var dr = cmd.ExecuteReader();
                 listReturn = PopulateReturnList(dr);

@@ -80,5 +80,15 @@ namespace EZWebServices.Models
         public int SaveDraft { get; set; }
 
         public int GradingPeriod { get; set; }
+
+        public string studentname { get; set; }
+
+        public string subjectname { get; set; }
+
+        public double finalgrade { get; set; }
+
+        public double average { get; set; }
+
+        public DateTime datemodified { get; set; }
     }
 }

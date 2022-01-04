@@ -23,10 +23,28 @@ namespace EZWebServices.Controllers
         [AcceptVerbs("GET", "POST")]
         [HttpPost]
         [Route("api/lga/newsAndAnnouncements/update_information")]
-        public IHttpActionResult UpdateStudentInformation(NewsAndAnnouncements request)
+        public IHttpActionResult UpdateNewsAndAnnouncement(NewsAndAnnouncements request)
         {
             var newsandannouncements = new NewsAndAnnouncements();
             return Ok(newsandannouncements.UpdateNewsAndAnnouncement(request));
+        }
+
+        [AcceptVerbs("GET", "POST")]
+        [HttpPost]
+        [Route("api/lga/newsAndAnnouncements/create_information")]
+        public IHttpActionResult CreateNewsAndAnnouncement(NewsAndAnnouncements request)
+        {
+            var newsandannouncements = new NewsAndAnnouncements();
+            return Ok(newsandannouncements.CreateNewsAndAnnouncement(request));
+        }
+
+        [AcceptVerbs("GET", "POST")]
+        [HttpPost]
+        [Route("api/lga/newsAndAnnouncements/delete_information/{ID}")]
+        public IHttpActionResult DeleteNewsAndAnnouncement(int ID)
+        {
+            var newsandannouncements = new NewsAndAnnouncements();
+            return Ok(newsandannouncements.DeleteNewsAndAnnouncement(ID));
         }
     }
 }

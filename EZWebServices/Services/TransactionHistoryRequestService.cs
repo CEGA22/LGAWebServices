@@ -76,7 +76,7 @@ namespace EZWebServices.Services
             {
                 cn.Open();
                 var cmd = cn.CreateCommand();
-                cmd.CommandText = "SELECT TransactionHistory.TransactionId, StudentAccount.StudentNumber, StudentAccount.Lastname, StudentAccount.Middlename, StudentAccount.Firstname, TransactionHistory.Amount, TransactionHistory.TransactionDate, TransactionHistory.Note, StudentBalance.SchoolYear FROM TransactionHistory JOIN StudentAccount ON TransactionHistory.StudentId = StudentAccount.ID JOIN StudentBalance ON TransactionHistory.StudentId = StudentBalance.ID";
+                cmd.CommandText = "SELECT TransactionHistory.TransactionId, StudentAccount.StudentNumber, StudentAccount.Lastname, StudentAccount.Middlename, StudentAccount.Firstname, TransactionHistory.Amount, TransactionHistory.TransactionDate, TransactionHistory.Note, StudentBalance.SchoolYear FROM TransactionHistory JOIN StudentAccount ON TransactionHistory.StudentId = StudentAccount.ID JOIN StudentBalance ON TransactionHistory.StudentId = StudentBalance.StudentID ORDER BY TransactionDate DESC";
                 var dr = cmd.ExecuteReader();
                 listReturn = PopulateReturnList(dr);
             }

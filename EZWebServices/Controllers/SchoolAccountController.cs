@@ -19,6 +19,16 @@ namespace EZWebServices.Controllers
         {
             var studentAccount = new SchoolAccount();
             return studentAccount.GetSchoolAccountDetails();
-        }      
+        }
+
+        // GET: SchoolAccountPassword             
+        [AcceptVerbs("GET", "POST")]
+        [HttpGet]
+        [Route("api/lga/schoolAccount/get_password/{email}")]
+        public IEnumerable<SchoolAccount> GetSchoolAccountPassword(string email)
+        {
+            var studentaccount = new SchoolAccount();
+            return studentaccount.GetSchoolAccountPassword(email);
+        }
     }
 }

@@ -19,6 +19,12 @@ namespace EZWebServices.Models
 
         public string schoolNumber { get; set; }
 
+        public DateTime Birthday { get; set; }
+
+        public string Address { get; set; }
+
+        public string Email { get; set; }
+
         public string password { get; set; }
 
         public byte[] TeacherProfile { get; set; }
@@ -37,7 +43,7 @@ namespace EZWebServices.Models
             {
                 cn.Open();
                 var cmd = cn.CreateCommand();
-                cmd.CommandText = "SELECT ID, Lastname, Middlename,Firstname, SchoolNumber,Password,TeacherProfile, MobileNumber,Gender,IsAdmin FROM SchoolAccount";
+                cmd.CommandText = "SELECT * FROM SchoolAccount";
                 var dr = cmd.ExecuteReader();
                 listReturn = PopulateReturnList(dr);
             }
@@ -60,6 +66,9 @@ namespace EZWebServices.Models
                     middlename = dr["Middlename"].ToString(),
                     firstname = dr["Firstname"].ToString(),
                     schoolNumber = dr["SchoolNumber"].ToString(),
+                    Address = dr["Address"].ToString(),
+                    Birthday = Convert.ToDateTime(dr["Birthday"].ToString()),
+                    Email = dr["Email"].ToString(),
                     password = dr["Password"].ToString(),
                     TeacherProfile = (byte[])dr["TeacherProfile"],
                     mobileNumber = dr["MobileNumber"].ToString(),
@@ -70,6 +79,44 @@ namespace EZWebServices.Models
             }
 
             return listReturn;
-        }     
+        }
+
+        public List<SchoolAccount> GetSchoolAccountPassword(string email)
+
+        {
+            var listReturn = new List<SchoolAccount>();
+
+            using (var cn = new SqlConnection(ConnectionHelper.LGAConnection()))
+            {
+                cn.Open();
+                var cmd = cn.CreateCommand();
+                cmd.CommandText = "SELECT Password FROM SchoolAccount WHERE Email = @Email";
+                cmd.Parameters.AddWithValue("@Email", email);
+                var dr = cmd.ExecuteReader();
+                listReturn = PopulateReturnLists(dr);
+            }
+            return listReturn;
+        }
+
+        public List<SchoolAccount> PopulateReturnLists(SqlDataReader dr)
+        {
+            try
+            {
+                var listReturn = new List<SchoolAccount>();
+                while (dr.Read())
+                {
+                    listReturn.Add(new SchoolAccount
+                    {
+                        password = dr["Password"].ToString()
+                    });
+                }
+
+                return listReturn;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
     }
 }

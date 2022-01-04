@@ -9,12 +9,8 @@ namespace EZWebServices.Models
     {
         public int ID { get; set; }
 
-        public string Subject { get; set; }
-
-        public string Firstname { get; set; }
-
-        public string Lastname { get; set; }
-
+        public int Subject { get; set; }
+      
         public TimeSpan StartTime { get; set; }
 
         public TimeSpan EndTime { get; set; }

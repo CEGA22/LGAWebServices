@@ -38,5 +38,16 @@ namespace EZWebServices.Controllers
             var studentRequestService = new SchoolRequestService();
             return Ok(studentRequestService.UpdateSchoolAccount(request));
         }
+
+         [AcceptVerbs("GET", "POST")]
+        [HttpPost]
+        [Route("api/lga/school/update_password")]
+        public IHttpActionResult UpdateSchoolAccountPassword(SchoolReuqest request)
+        {
+            var studentRequestService = new SchoolRequestService();
+            return Ok(studentRequestService.UpdateSchoolAccountPassword(request));
+        }
+
+
     }
 }

@@ -64,23 +64,70 @@ namespace EZWebServices.Models
             {
                 var con = new SqlConnection(ConnectionHelper.LGAConnection());
 
-                using (SqlCommand cmd = new SqlCommand("UPDATE NewsAndAnnouncements SET Title = @Title, Content = @Content, ContentPhoto = @ContentPhoto, AuthorsName = @AuthorsName, DateCreated = @DateCreated WHERE ID = @ID", con))
+                using (SqlCommand cmd = new SqlCommand("UPDATE NewsAndAnnouncements SET Title = @Title, Content = @Content, ContentPhoto = @ContentPhoto, DateCreated = @DateCreated WHERE ID = @ID", con))
                 {
                     cmd.Parameters.AddWithValue("@ID", request.ID);
                     cmd.Parameters.AddWithValue("@Title", request.Title);
                     cmd.Parameters.AddWithValue("@Content", request.Content);
                     cmd.Parameters.AddWithValue("@ContentPhoto", request.ContentPhoto);
-                    cmd.Parameters.AddWithValue("@AuthorsName", request.AuthorsName);
+                    //cmd.Parameters.AddWithValue("@AuthorsName", request.AuthorsName);
                     cmd.Parameters.AddWithValue("@DateCreated", request.DateCreated);                   
                     con.Open();
-                    cmd.ExecuteNonQuery();
-                    //studentId = (decimal)cmd.ExecuteScalar();
+                    cmd.ExecuteNonQuery();                   
                     con.Close();
                 }
                 return true;
             }
             catch (Exception e)
             {
+                return false;
+            }
+        }
+
+        public bool CreateNewsAndAnnouncement(NewsAndAnnouncements request)
+        {
+            try
+            {
+                var con = new SqlConnection(ConnectionHelper.LGAConnection());
+                using (SqlCommand cmd = new SqlCommand("INSERT INTO NewsAndAnnouncements (Title,Content,ContentPhoto,DateCreated) VALUES(@Title,@Content, @ContentPhoto,@DateCreated); SELECT SCOPE_IDENTITY()", con))
+                {                   
+                    cmd.Parameters.AddWithValue("@Title", request.Title);
+                    cmd.Parameters.AddWithValue("@Content", request.Content);
+                    cmd.Parameters.AddWithValue("@ContentPhoto", request.ContentPhoto);
+                    //cmd.Parameters.AddWithValue("@AuthorsName", request.AuthorsName);
+                    cmd.Parameters.AddWithValue("@DateCreated", request.DateCreated);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+
+                return false;
+            }
+        }
+
+        public bool DeleteNewsAndAnnouncement(int ID)
+        {
+            try
+            {
+                var con = new SqlConnection(ConnectionHelper.LGAConnection());
+                using (SqlCommand cmd = new SqlCommand("DELETE FROM NewsAndAnnouncements WHERE ID = @ID", con))
+                {
+                    cmd.Parameters.AddWithValue("@ID", ID);                   
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+
                 return false;
             }
         }

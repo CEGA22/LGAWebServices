@@ -25,6 +25,8 @@ namespace EZWebServices.Models
 
         public string WeekDay { get; set; }
 
+        public string GradeLevel { get; set; }
+
 
         public List<ClassSchedule> GetClassScheduleDetails()
             {
@@ -34,7 +36,7 @@ namespace EZWebServices.Models
                 {
                     cn.Open();
                     var cmd = cn.CreateCommand();
-                    cmd.CommandText = "SELECT ClassSchedule.ID, Subjects.SubjectName AS 'Subject',  SchoolAccount.Firstname, SchoolAccount.Lastname, CONVERT(varchar, ClassSchedule.StartTime, 100) AS 'Start Time', CONVERT(varchar, ClassSchedule.EndTime, 100) AS 'End Time', ClassSchedule.WeekDay FROM ClassSchedule JOIN Subjects ON ClassSchedule.Subject = Subjects.ID JOIN Faculty ON ClassSchedule.Teacher = Faculty.ID JOIN SchoolAccount ON Faculty.FacultyID = SchoolAccount.ID ORDER BY CASE WHEN WeekDay = 'Sunday' THEN 1 WHEN WeekDay = 'Monday' THEN 2 WHEN WeekDay = 'Tuesday' THEN 3 WHEN WeekDay = 'Wednesday' THEN 4 WHEN WeekDay = 'Thursday' THEN 5 WHEN WeekDay = 'Friday' THEN 6 WHEN WeekDay = 'Saturday' THEN 7 END ASC";
+                    cmd.CommandText = "SELECT ClassSchedule.ID, Subjects.SubjectName AS 'Subject',  SchoolAccount.Firstname, SchoolAccount.Lastname, CONVERT(varchar, ClassSchedule.StartTime, 100) AS 'Start Time', CONVERT(varchar, ClassSchedule.EndTime, 100) AS 'End Time', ClassSchedule.WeekDay, YearLevel.Grade_Level FROM ClassSchedule JOIN Subjects ON ClassSchedule.Subject = Subjects.ID JOIN SchoolAccount ON ClassSchedule.Teacher = SchoolAccount.ID JOIN YearLevel ON Subjects.Grade_Level = YearLevel.ID ORDER BY CASE WHEN WeekDay = 'Sunday' THEN 1 WHEN WeekDay = 'Monday' THEN 2 WHEN WeekDay = 'Tuesday' THEN 3 WHEN WeekDay = 'Wednesday' THEN 4 WHEN WeekDay = 'Thursday' THEN 5 WHEN WeekDay = 'Friday' THEN 6 WHEN WeekDay = 'Saturday' THEN 7 END ASC, StartTime asc";
                     //cmd.Parameters.AddWithValue("@ID", ID);
                     var dr = cmd.ExecuteReader();
                     listReturn = PopulateReturnList(dr);
@@ -60,6 +62,7 @@ namespace EZWebServices.Models
                         StartTime = dr["Start Time"].ToString(),
                         EndTime = dr["End Time"].ToString(),  
                         WeekDay = dr["WeekDay"].ToString(),
+                        GradeLevel = dr["Grade_Level"].ToString()
                     });
                 }
 
@@ -109,7 +112,7 @@ namespace EZWebServices.Models
             {
                 cn.Open();
                 var cmd = cn.CreateCommand();
-                cmd.CommandText = "SELECT ClassSchedule.ID, Subjects.SubjectName AS 'Subject' ,SchoolAccount.Firstname, SchoolAccount.Lastname,CONVERT(varchar, ClassSchedule.StartTime, 100) AS 'Start Time', CONVERT(varchar, ClassSchedule.EndTime, 100) AS 'End Time', ClassSchedule.WeekDay FROM ClassSchedule JOIN Students ON ClassSchedule.GradeLevel = Students.Grade_Level JOIN Faculty ON ClassSchedule.Teacher = Faculty.ID JOIN Subjects ON ClassSchedule.Subject = Subjects.ID JOIN SchoolAccount ON Faculty.FacultyID = SchoolAccount.ID WHERE Students.StudentID = @ID";
+                cmd.CommandText = "SELECT ClassSchedule.ID, Subjects.SubjectName AS 'Subject' ,SchoolAccount.Firstname, SchoolAccount.Lastname,CONVERT(varchar, ClassSchedule.StartTime, 100) AS 'Start Time', CONVERT(varchar, ClassSchedule.EndTime, 100) AS 'End Time', ClassSchedule.WeekDay FROM ClassSchedule JOIN Students ON ClassSchedule.GradeLevel = Students.Grade_Level JOIN SchoolAccount ON ClassSchedule.Teacher = SchoolAccount.ID JOIN Subjects ON ClassSchedule.Subject = Subjects.ID WHERE Students.StudentID = @ID ORDER BY CASE WHEN WeekDay = 'Sunday' THEN 1 WHEN WeekDay = 'Monday' THEN 2 WHEN WeekDay = 'Tuesday' THEN 3 WHEN WeekDay = 'Wednesday' THEN 4 WHEN WeekDay = 'Thursday' THEN 5 WHEN WeekDay = 'Friday' THEN 6 WHEN WeekDay = 'Saturday' THEN 7 END ASC, StartTime asc";
                 cmd.Parameters.AddWithValue("@ID", ID);
                 var dr = cmd.ExecuteReader();
 
@@ -141,7 +144,7 @@ namespace EZWebServices.Models
             {
                 cn.Open();
                 var cmd = cn.CreateCommand();
-                cmd.CommandText = "SELECT ClassSchedule.ID, Subjects.SubjectName AS 'Subject',  SchoolAccount.Firstname, SchoolAccount.Lastname, CONVERT(varchar, ClassSchedule.StartTime, 100) AS 'Start Time', CONVERT(varchar, ClassSchedule.EndTime, 100) AS 'End Time', ClassSchedule.WeekDay FROM ClassSchedule JOIN Subjects ON ClassSchedule.Subject = Subjects.ID JOIN Faculty ON ClassSchedule.Teacher = Faculty.ID JOIN SchoolAccount ON Faculty.FacultyID = SchoolAccount.ID WHERE Faculty.FacultyID = @ID ORDER BY CASE WHEN WeekDay = 'Sunday' THEN 1 WHEN WeekDay = 'Monday' THEN 2 WHEN WeekDay = 'Tuesday' THEN 3 WHEN WeekDay = 'Wednesday' THEN 4 WHEN WeekDay = 'Thursday' THEN 5 WHEN WeekDay = 'Friday' THEN 6 WHEN WeekDay = 'Saturday' THEN 7 END ASC";
+                cmd.CommandText = "SELECT ClassSchedule.ID, Subjects.SubjectName AS 'Subject',  SchoolAccount.Firstname, SchoolAccount.Lastname, CONVERT(varchar, ClassSchedule.StartTime, 100) AS 'Start Time', CONVERT(varchar, ClassSchedule.EndTime, 100) AS 'End Time', ClassSchedule.WeekDay FROM ClassSchedule JOIN Subjects ON ClassSchedule.Subject = Subjects.ID JOIN SchoolAccount ON ClassSchedule.Teacher = SchoolAccount.ID WHERE SchoolAccount.ID = @ID ORDER BY CASE WHEN WeekDay = 'Sunday' THEN 1 WHEN WeekDay = 'Monday' THEN 2 WHEN WeekDay = 'Tuesday' THEN 3 WHEN WeekDay = 'Wednesday' THEN 4 WHEN WeekDay = 'Thursday' THEN 5 WHEN WeekDay = 'Friday' THEN 6 WHEN WeekDay = 'Saturday' THEN 7 END ASC, StartTime asc";
                 cmd.Parameters.AddWithValue("@ID", ID);
                 var dr = cmd.ExecuteReader();
 

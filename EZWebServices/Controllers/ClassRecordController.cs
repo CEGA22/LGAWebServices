@@ -39,5 +39,17 @@ namespace EZWebServices.Controllers
             var studentRequestService = new ClassRecordRequestService();
             return Ok(studentRequestService.UpdateClassRecord(request));
         }
+
+        // GET: UpdateClassRecordRequest
+        [AcceptVerbs("GET", "POST")]
+        [HttpPost]
+        [Route("api/lga/classrecord/update_finalgrades")]
+        public IHttpActionResult UpdateFinalGrade(ClassRecordRequest request)
+        {
+            var studentRequestService = new ClassRecordRequestService();
+            return Ok(studentRequestService.UpdateFinalGrade(request));
+        }
+
+
     }
 }
