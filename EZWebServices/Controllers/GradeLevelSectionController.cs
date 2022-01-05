@@ -28,7 +28,7 @@ namespace EZWebServices.Controllers
             var studentRequestService = new GradeLevelSectionRequestService();
             return Ok(studentRequestService.CreateGradeLevelSectionInformation(request));
         }
-
+     
         // GET: UpdateStudentRequest
         [AcceptVerbs("GET", "POST")]
         [HttpPost]
@@ -37,6 +37,16 @@ namespace EZWebServices.Controllers
         {
             var studentRequestService = new GradeLevelSectionRequestService();
             return Ok(studentRequestService.UpdateGradeLevelSectionInformation(request));
+        }
+
+        // GET: DeleteSection
+        [AcceptVerbs("GET", "POST")]
+        [HttpPost]
+        [Route("api/lga/gradelevelsection/delete_information/{ID}")]
+        public IHttpActionResult DeleteSection(int ID)
+        {
+            var GradeLevelSection = new GradeLevelSectionRequestService();
+            return Ok(GradeLevelSection.DeleteSection(ID));
         }
     }
 }

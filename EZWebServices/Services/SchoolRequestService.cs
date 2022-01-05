@@ -15,7 +15,7 @@ namespace EZWebServices.Services
             try
             {
                 var con = new SqlConnection(ConnectionHelper.LGAConnection());
-                using (SqlCommand cmd = new SqlCommand("INSERT INTO SchoolAccount(Lastname,Middlename,Firstname,Birthday,Address,Email,MobileNumber,SchoolNumber,Password,Gender,IsAdmin,IsFaculty,TeacherProfile) VALUES(@Lastname,@Middlename,@Firstname, @Birthday, @Address, @Email,@SchoolNumber,@Password, @MobileNumber,@Gender,@IsAdmin, @IsFaculty, @TeacherProfile); SELECT SCOPE_IDENTITY()", con))
+                using (SqlCommand cmd = new SqlCommand("INSERT INTO SchoolAccount(Lastname,Middlename,Firstname,Birthday,Address,Email,MobileNumber,SchoolNumber,Password,Gender,IsAdmin,IsFaculty, TeacherProfile) VALUES(@Lastname,@Middlename,@Firstname, @Birthday, @Address, @Email,@SchoolNumber,@Password, @MobileNumber,@Gender,@IsAdmin, @IsFaculty, @TeacherProfile); SELECT SCOPE_IDENTITY()", con))
                 {
                     cmd.Parameters.AddWithValue("@Lastname", request.LastName);
                     cmd.Parameters.AddWithValue("@Middlename", request.Middlename);

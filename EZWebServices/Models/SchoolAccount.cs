@@ -81,6 +81,51 @@ namespace EZWebServices.Models
             return listReturn;
         }
 
+        public List<SchoolAccount> GetStudentAccountOnly()
+        {
+            var listReturn = new List<SchoolAccount>();
+
+            using (var cn = new SqlConnection(ConnectionHelper.LGAConnection()))
+            {
+                cn.Open();
+                var cmd = cn.CreateCommand();
+                cmd.CommandText = "SELECT ID, Lastname, Middlename,Firstname,Birthday,Address,Email,MobileNumber,SchoolNumber,Password,Gender,IsAdmin,IsFaculty FROM SchoolAccount";
+                var dr = cmd.ExecuteReader();
+                listReturn = populateReturnLists(dr);
+            }
+
+            return listReturn;
+        }
+
+        public List<SchoolAccount> populateReturnLists(SqlDataReader dr)
+        {
+
+            var listReturn = new List<SchoolAccount>();
+
+            while (dr.Read())
+            {
+
+                listReturn.Add(new SchoolAccount
+                {
+                    id = int.Parse(dr["ID"].ToString()),
+                    lastName = dr["Lastname"].ToString(),
+                    middlename = dr["Middlename"].ToString(),
+                    firstname = dr["Firstname"].ToString(),
+                    schoolNumber = dr["SchoolNumber"].ToString(),
+                    Address = dr["Address"].ToString(),
+                    Birthday = Convert.ToDateTime(dr["Birthday"].ToString()),
+                    Email = dr["Email"].ToString(),
+                    password = dr["Password"].ToString(),                   
+                    mobileNumber = dr["MobileNumber"].ToString(),
+                    gender = dr["Gender"].ToString(),
+                    isAdmin = (int)dr["IsAdmin"]
+
+                });
+            }
+
+            return listReturn;
+        }
+
         public List<SchoolAccount> GetSchoolAccountPassword(string email)
 
         {

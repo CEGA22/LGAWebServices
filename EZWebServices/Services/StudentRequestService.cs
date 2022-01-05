@@ -17,7 +17,9 @@ namespace EZWebServices.Services
                 var studentId = CreateStudentAccount(request);
                 var gradelevelid = CreateStudentDetails(studentId, request);
                 var subjectsList =  GetSubjects(gradelevelid);
+                var studentname = GetStudentAccountFullname(studentId);
                 CreateClassRecord(studentId, subjectsList, request);
+                CreateFinalGrade(studentId, subjectsList, studentname, request);
                 return true;
             }
             catch(Exception e)
@@ -73,40 +75,45 @@ namespace EZWebServices.Services
             return request.GradeLevelid;
         }
 
-        private int GetFacultyIDByGradeLevel(int gradelevel)
-        {
-            int facultyID = 0;
-            using (var cn = new SqlConnection(ConnectionHelper.LGAConnection()))
-            {
-                cn.Open();
-                var cmd = cn.CreateCommand();
-                cmd.CommandText = "SELECT Teacher FROM SectionsHandled WHERE Gradelevel = @gradelevel";
-                var dr = cmd.ExecuteReader();
-                cmd.Parameters.AddWithValue("@gradelevel", gradelevel);
-
-                while (dr.Read())
-                {
-                    facultyID = (int)dr["Teacher"];
-                }
-            }
-
-            return facultyID;
-        }
-
-        //private int GetSubjects(int subjects)
+        //private int GetFacultyIDByGradeLevel(int gradelevel)
         //{
-        //    int subjectscount = 0;
+        //    int facultyID = 0;
         //    using (var cn = new SqlConnection(ConnectionHelper.LGAConnection()))
         //    {
         //        cn.Open();
         //        var cmd = cn.CreateCommand();
-        //        cmd.CommandText = "SELECT COUNT(DISTINCT SubjectName) FROM Subjects JOIN Section ON Section.Grade_Level = Subjects.Grade_Level WHERE Section.Grade_Level = @Subjects";
+        //        cmd.CommandText = "SELECT Teacher FROM SectionsHandled WHERE Gradelevel = @gradelevel";
         //        var dr = cmd.ExecuteReader();
-        //        cmd.Parameters.AddWithValue("@Subjects", subjects);
+        //        cmd.Parameters.AddWithValue("@gradelevel", gradelevel);
+
+        //        while (dr.Read())
+        //        {
+        //            facultyID = (int)dr["Teacher"];
+        //        }
         //    }
 
-        //    return subjectscount;
+        //    return facultyID;
         //}
+
+        private string GetStudentAccountFullname(int studentId)
+        {
+            string lastname = "";
+            using (var cn = new SqlConnection(ConnectionHelper.LGAConnection()))
+            {
+                cn.Open();
+                var cmd = cn.CreateCommand();
+                cmd.CommandText = "SELECT CONCAT(Firstname, + ' ' + Lastname) AS 'Fullname' FROM StudentAccount WHERE ID = @ID";
+                cmd.Parameters.AddWithValue("@ID", studentId);
+                var dr = cmd.ExecuteReader();
+                
+                while (dr.Read())
+                {
+                    lastname = dr["Fullname"].ToString();
+                }
+            }
+
+            return lastname;
+        }
 
         public List<Subjects> GetSubjects(int gradelevelid)
         {
@@ -191,6 +198,30 @@ namespace EZWebServices.Services
                     }
                 }
             }            
+        }
+
+        private void CreateFinalGrade(int studentId, List<Subjects> subjectsList, string studentname, StudentRequest request)
+        {
+            DateTime dateTime = DateTime.Now;
+            DateTime other = DateTime.SpecifyKind(dateTime, DateTimeKind.Utc);
+            foreach (var subject in subjectsList)
+            {
+                var con = new SqlConnection(ConnectionHelper.LGAConnection());
+
+                using (SqlCommand cmd = new SqlCommand("INSERT INTO FinalGrade VALUES(@StudentID, @StudentName, @SubjectID, @SubjectName, @FinalGrade, @Average, @DateModified)", con))
+                {
+                    cmd.Parameters.AddWithValue("@StudentID", studentId);
+                    cmd.Parameters.AddWithValue("@StudentName", studentname);
+                    cmd.Parameters.AddWithValue("@SubjectID", subject.ID);
+                    cmd.Parameters.AddWithValue("@SubjectName", subject.SubjectName);
+                    cmd.Parameters.AddWithValue("@FinalGrade", 0);
+                    cmd.Parameters.AddWithValue("@Average", 0);
+                    cmd.Parameters.AddWithValue("@DateModified", other);
+                    con.Open();
+                    cmd.ExecuteScalar();
+                    con.Close();
+                }
+            }                       
         }
 
         public bool UpdateStudentInformation(StudentRequest request)

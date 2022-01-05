@@ -21,6 +21,16 @@ namespace EZWebServices.Controllers
             return studentAccount.GetSchoolAccountDetails();
         }
 
+        // GET: Student
+        [AcceptVerbs("GET", "POST")]
+        [HttpGet]
+        [Route("api/lga/schoolAccount/get_accountOnly")]
+        public IEnumerable<SchoolAccount> GetSchoolAccountOnly()
+        {
+            var schoolAccount = new SchoolAccount();
+            return schoolAccount.GetStudentAccountOnly();
+        }
+
         // GET: SchoolAccountPassword             
         [AcceptVerbs("GET", "POST")]
         [HttpGet]

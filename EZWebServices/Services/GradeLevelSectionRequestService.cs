@@ -12,25 +12,15 @@ namespace EZWebServices.Services
     {
         public bool CreateGradeLevelSectionInformation(GradeLevelSection request)
         {
-            try
+            var con = new SqlConnection(ConnectionHelper.LGAConnection());
+            using (SqlCommand cmd = new SqlCommand("INSERT INTO Section VALUES(@GradeLevelID, @SectionName)", con))
             {
-                var con = new SqlConnection(ConnectionHelper.LGAConnection());
-
-                using (SqlCommand cmd = new SqlCommand("INSERT INTO Section VALUES(@GradeLevelID, @SectionName)", con))
-                {
-                    cmd.Parameters.AddWithValue("@GradeLevelID", request.GradeLevel);
-                    cmd.Parameters.AddWithValue("@SectionName", request.SectionName);
-                    con.Open();
-
-                    cmd.ExecuteScalar();
-                    return true;
-
-                    con.Close();
-                }
-            }
-            catch (Exception)
-            {
-                return false;
+                cmd.Parameters.AddWithValue("@GradeLevelID", request.GradeLevel);
+                cmd.Parameters.AddWithValue("@SectionName", request.SectionName);
+                con.Open();
+                cmd.ExecuteScalar();
+                con.Close();
+                return true;
             }
         }
 
@@ -53,6 +43,27 @@ namespace EZWebServices.Services
             }
             catch (Exception e)
             {
+                return false;
+            }
+        }
+
+        public bool DeleteSection(int ID)
+        {
+            try
+            {
+                var con = new SqlConnection(ConnectionHelper.LGAConnection());
+                using (SqlCommand cmd = new SqlCommand("DELETE FROM Section WHERE ID = @ID", con))
+                {
+                    cmd.Parameters.AddWithValue("@ID", ID);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+
                 return false;
             }
         }
