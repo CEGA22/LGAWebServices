@@ -69,9 +69,9 @@ namespace EZWebServices.Models
 
         public string SchoolYearStart { get; set; }
 
-        public int Grade_Level { get; set; }
+        public string Grade_Level { get; set; }
 
-        public string SubjectName { get; set; }
+        public int SubjectName { get; set; }
 
         public string SectionName { get; set; }
 
@@ -96,9 +96,12 @@ namespace EZWebServices.Models
             {
                 cn.Open();
                 var cmd = cn.CreateCommand();
-                cmd.CommandText = "SELECT StudentAccount.ID, StudentAccount.Lastname, StudentAccount.Firstname,  ClassRecords.WrittenWork1, ClassRecords.WrittenWork2,ClassRecords.WrittenWork3, ClassRecords.WrittenWork4, ClassRecords.WrittenWork5,ClassRecords.WrittenWork6, ClassRecords.WrittenWork7,ClassRecords.WrittenWork8,ClassRecords.WrittenWork9,ClassRecords.WrittenWork10, ClassRecords.WrittenWorkTotal, ClassRecords.WrittentWorkPercentage,ClassRecords.TaskPerformance1,ClassRecords.TaskPerformance2,ClassRecords.TaskPerformance3,ClassRecords.TaskPerformance4,ClassRecords.TaskPerformance5,ClassRecords.TaskPerformance6,ClassRecords.TaskPerformance7,ClassRecords.TaskPerformance8,ClassRecords.TaskPerformance9, ClassRecords.TaskPerformance10,ClassRecords.TaskPerformanceTotal,ClassRecords.TaskPerformancePercentage, ClassRecords.InitialGrade, ClassRecords.QuarterlyGrade, Students.SchoolYearStart, Section.Grade_Level, Subjects.SubjectName, Section.SectionName, ClassRecords.SaveasDraft,ClassRecords.SaveDraft, ClassRecords.GradingPeriod FROM ClassRecords JOIN Students ON ClassRecords.Learnersname = Students.StudentID JOIN StudentAccount ON Students.StudentID = StudentAccount.ID  JOIN Section ON Students.Grade_Level = Section.ID JOIN SectionsHandled ON Section.ID = SectionsHandled.Gradelevel JOIN SchoolAccount ON SectionsHandled.Teacher = SchoolAccount.ID JOIN SubjectsHandled ON ClassRecords.SubjectsName = SubjectsHandled.Subject JOIN Subjects ON SubjectsHandled.Subject = Subjects.ID WHERE SectionsHandled.Teacher = @ID ORDER BY CASE WHEN StudentAccount.Lastname = 'Highest possible score' THEN 0 ELSE 1 END, StudentAccount.Lastname asc";
+                cmd.CommandText = "SELECT StudentAccount.ID, StudentAccount.Lastname, StudentAccount.Firstname,  ClassRecords.WrittenWork1, ClassRecords.WrittenWork2,ClassRecords.WrittenWork3, ClassRecords.WrittenWork4, ClassRecords.WrittenWork5,ClassRecords.WrittenWork6, ClassRecords.WrittenWork7, ClassRecords.WrittenWork7,ClassRecords.WrittenWork8,ClassRecords.WrittenWork9,ClassRecords.WrittenWork10, ClassRecords.WrittenWorkTotal,ClassRecords.WrittentWorkPercentage,ClassRecords.TaskPerformance1,ClassRecords.TaskPerformance2,ClassRecords.TaskPerformance3,ClassRecords.TaskPerformance4,ClassRecords.TaskPerformance5,ClassRecords.TaskPerformance6,ClassRecords.TaskPerformance7,ClassRecords.TaskPerformance8,ClassRecords.TaskPerformance9,ClassRecords.TaskPerformance10,ClassRecords.TaskPerformanceTotal,ClassRecords.TaskPerformancePercentage,ClassRecords.InitialGrade, ClassRecords.QuarterlyGrade, ClassRecords.GradingPeriod, YearLevel.Grade_Level,Section.SectionName,ClassRecords.SaveDraft, Students.SchoolYearStart, ClassRecords.SubjectsName FROM ClassRecords JOIN StudentAccount ON ClassRecords.Learnersname = StudentAccount.ID JOIN Students ON StudentAccount.ID = Students.StudentID JOIN Section ON Students.Grade_Level = Section.ID JOIN YearLevel ON Section.Grade_Level = YearLevel.ID JOIN SectionsHandled ON Section.ID = SectionsHandled.Gradelevel JOIN SchoolAccount ON SectionsHandled.Teacher = SchoolAccount.ID WHERE SectionsHandled.Teacher = @ID ORDER BY CASE WHEN StudentAccount.Lastname = 'Highest possible score' THEN 0 ELSE 1 END, StudentAccount.Lastname asc";
 
-                //SELECT StudentAccount.ID, StudentAccount.Lastname, StudentAccount.Firstname,  ClassRecords.WrittenWork1, ClassRecords.WrittenWork2,ClassRecords.WrittenWork3, ClassRecords.WrittenWork4, ClassRecords.WrittenWork5,ClassRecords.WrittenWork6, ClassRecords.WrittenWork7,ClassRecords.WrittenWork8,ClassRecords.WrittenWork9,ClassRecords.WrittenWork10, ClassRecords.WrittenWorkTotal, ClassRecords.WrittentWorkPercentage,ClassRecords.TaskPerformance1,ClassRecords.TaskPerformance2,ClassRecords.TaskPerformance3,ClassRecords.TaskPerformance4,ClassRecords.TaskPerformance5,ClassRecords.TaskPerformance6,ClassRecords.TaskPerformance7,ClassRecords.TaskPerformance8,ClassRecords.TaskPerformance9,ClassRecords.TaskPerformance10,ClassRecords.TaskPerformanceTotal,ClassRecords.TaskPerformancePercentage, ClassRecords.InitialGrade, ClassRecords.QuarterlyGrade, Students.SchoolYearStart, Section.Grade_Level, Subjects.SubjectName, Section.SectionName, ClassRecords.SaveasDraft,ClassRecords.SaveDraft, ClassRecords.GradingPeriod FROM ClassRecords JOIN Students ON ClassRecords.Learnersname = Students.StudentID JOIN StudentAccount ON Students.StudentID = StudentAccount.ID  JOIN Section ON Students.Grade_Level = Section.ID JOIN SectionsHandled ON Section.ID = SectionsHandled.Gradelevel JOIN SubjectsHandled ON SectionsHandled.Gradelevel = SubjectsHandled.Grade_Level JOIN SchoolAccount ON SectionsHandled.ID = SchoolAccount.ID JOIN Subjects ON SubjectsHandled.Subject = Subjects.ID WHERE SectionsHandled.Teacher = @ID ORDER BY CASE WHEN StudentAccount.Lastname = 'Highest possible score' THEN 0 ELSE 1 END, Lastname asc
+                //SELECT StudentAccount.ID, StudentAccount.Lastname, StudentAccount.Firstname,  ClassRecords.WrittenWork1, ClassRecords.WrittenWork2,ClassRecords.WrittenWork3, ClassRecords.WrittenWork4, ClassRecords.WrittenWork5,ClassRecords.WrittenWork6, ClassRecords.WrittenWork7,ClassRecords.WrittenWork8,ClassRecords.WrittenWork9,ClassRecords.WrittenWork10, ClassRecords.WrittenWorkTotal, ClassRecords.WrittentWorkPercentage,ClassRecords.TaskPerformance1,ClassRecords.TaskPerformance2,ClassRecords.TaskPerformance3,ClassRecords.TaskPerformance4,ClassRecords.TaskPerformance5,ClassRecords.TaskPerformance6,ClassRecords.TaskPerformance7,ClassRecords.TaskPerformance8,ClassRecords.TaskPerformance9, ClassRecords.TaskPerformance10,ClassRecords.TaskPerformanceTotal,ClassRecords.TaskPerformancePercentage, ClassRecords.InitialGrade, ClassRecords.QuarterlyGrade, Students.SchoolYearStart, Section.Grade_Level, Subjects.SubjectName, Section.SectionName, ClassRecords.SaveasDraft,ClassRecords.SaveDraft, ClassRecords.GradingPeriod FROM ClassRecords JOIN Students ON ClassRecords.Learnersname = Students.StudentID JOIN StudentAccount ON Students.StudentID = StudentAccount.ID  JOIN Section ON Students.Grade_Level = Section.ID JOIN SectionsHandled ON Section.ID = SectionsHandled.Gradelevel JOIN SchoolAccount ON SectionsHandled.Teacher = SchoolAccount.ID JOIN SubjectsHandled ON ClassRecords.SubjectsName = SubjectsHandled.Subject JOIN Subjects ON SubjectsHandled.Subject = Subjects.ID WHERE SectionsHandled.Teacher = @ID ORDER BY CASE WHEN StudentAccount.Lastname = 'Highest possible score' THEN 0 ELSE 1 END, StudentAccount.Lastname asc
+
+
+
                 cmd.Parameters.AddWithValue("@ID", ID);
                 var dr = cmd.ExecuteReader();
                 listReturn = PopulateReturnList(dr);
@@ -151,13 +154,14 @@ namespace EZWebServices.Models
                         TaskPerformancePercentage = (double)dr["TaskPerformancePercentage"],
                         InitialGrade = (double)dr["InitialGrade"],
                         QuarterlyGrade = int.Parse(dr["QuarterlyGrade"].ToString()),
-                        SubjectName = dr["SubjectName"].ToString(),
-                        SchoolYearStart = dr["SchoolYearStart"].ToString(),
-                        Grade_Level = int.Parse(dr["Grade_Level"].ToString()),
+                        GradingPeriod = int.Parse(dr["GradingPeriod"].ToString()),
+                        Grade_Level = dr["Grade_Level"].ToString(),
                         SectionName = dr["SectionName"].ToString(),
-                        SaveasDraft = int.Parse(dr["SaveasDraft"].ToString()),
                         SaveDraft = int.Parse(dr["SaveDraft"].ToString()),
-                        GradingPeriod = int.Parse(dr["GradingPeriod"].ToString()),                       
+                        SchoolYearStart = dr["SchoolYearStart"].ToString(),
+                        SubjectName = int.Parse(dr["SubjectsName"].ToString())
+                        //SubjectName = dr["SubjectName"].ToString(),                                                                  
+                        //SaveasDraft = int.Parse(dr["SaveasDraft"].ToString()),                                             
                     });
                 }
 
@@ -170,7 +174,6 @@ namespace EZWebServices.Models
             }
         }
 
-
         public List<ClassRecord> GetClassRecordsDetailsStudent(int ID)
         {
             var listReturn = new List<ClassRecord>();
@@ -179,9 +182,13 @@ namespace EZWebServices.Models
             {
                 cn.Open();
                 var cmd = cn.CreateCommand();
-                cmd.CommandText = "SELECT distinct StudentAccount.ID, StudentAccount.Lastname, StudentAccount.Firstname,  ClassRecords.WrittenWork1, ClassRecords.WrittenWork2,ClassRecords.WrittenWork3, ClassRecords.WrittenWork4, ClassRecords.WrittenWork5,ClassRecords.WrittenWork6, ClassRecords.WrittenWork7,ClassRecords.WrittenWork8,ClassRecords.WrittenWork9,ClassRecords.WrittenWork10, ClassRecords.WrittenWorkTotal, ClassRecords.WrittentWorkPercentage,ClassRecords.TaskPerformance1,ClassRecords.TaskPerformance2,ClassRecords.TaskPerformance3,ClassRecords.TaskPerformance4,ClassRecords.TaskPerformance5,ClassRecords.TaskPerformance6,ClassRecords.TaskPerformance7,ClassRecords.TaskPerformance8,ClassRecords.TaskPerformance9,ClassRecords.TaskPerformance10,ClassRecords.TaskPerformanceTotal,ClassRecords.TaskPerformancePercentage, ClassRecords.InitialGrade, ClassRecords.QuarterlyGrade, Students.SchoolYearStart, Section.Grade_Level, Subjects.SubjectName, Section.SectionName, ClassRecords.SaveasDraft,ClassRecords.SaveDraft, ClassRecords.GradingPeriod, SchoolAccount.Firstname AS 'Teacher firstname', SchoolAccount.Lastname AS 'Teacher lastname' FROM ClassRecords JOIN Students ON ClassRecords.Learnersname = Students.StudentID JOIN StudentAccount ON Students.StudentID = StudentAccount.ID  JOIN Section ON Students.Grade_Level = Section.ID JOIN SectionsHandled ON Section.ID = SectionsHandled.Gradelevel JOIN SchoolAccount ON SectionsHandled.Teacher = SchoolAccount.ID  JOIN SubjectsHandled ON ClassRecords.SubjectsName = SubjectsHandled.Subject JOIN Subjects ON SubjectsHandled.Subject = Subjects.ID WHERE StudentAccount.ID = @ID";
+                cmd.CommandText = "SELECT StudentAccount.ID, StudentAccount.Lastname, StudentAccount.Firstname,  ClassRecords.WrittenWork1, ClassRecords.WrittenWork2,ClassRecords.WrittenWork3, ClassRecords.WrittenWork4, ClassRecords.WrittenWork5,ClassRecords.WrittenWork6, ClassRecords.WrittenWork7, ClassRecords.WrittenWork7,ClassRecords.WrittenWork8,ClassRecords.WrittenWork9,ClassRecords.WrittenWork10, ClassRecords.WrittenWorkTotal,ClassRecords.WrittentWorkPercentage,ClassRecords.TaskPerformance1,ClassRecords.TaskPerformance2,ClassRecords.TaskPerformance3,ClassRecords.TaskPerformance4,ClassRecords.TaskPerformance5,ClassRecords.TaskPerformance6,ClassRecords.TaskPerformance7,ClassRecords.TaskPerformance8,ClassRecords.TaskPerformance9,ClassRecords.TaskPerformance10,ClassRecords.TaskPerformanceTotal,ClassRecords.TaskPerformancePercentage,ClassRecords.InitialGrade, ClassRecords.QuarterlyGrade, ClassRecords.GradingPeriod, YearLevel.Grade_Level,Section.SectionName,ClassRecords.SaveDraft, Students.SchoolYearStart, ClassRecords.SubjectsName FROM ClassRecords JOIN StudentAccount ON ClassRecords.Learnersname = StudentAccount.ID JOIN Students ON StudentAccount.ID = Students.StudentID JOIN Section ON Students.Grade_Level = Section.ID JOIN YearLevel ON Section.Grade_Level = YearLevel.ID JOIN SectionsHandled ON Section.ID = SectionsHandled.Gradelevel JOIN SchoolAccount ON SectionsHandled.Teacher = SchoolAccount.ID WHERE StudentAccount.ID = @ID";
 
-                //SELECT StudentAccount.ID, StudentAccount.Lastname, StudentAccount.Firstname,  ClassRecords.WrittenWork1, ClassRecords.WrittenWork2,ClassRecords.WrittenWork3, ClassRecords.WrittenWork4, ClassRecords.WrittenWork5,ClassRecords.WrittenWork6, ClassRecords.WrittenWork7,ClassRecords.WrittenWork8,ClassRecords.WrittenWork9,ClassRecords.WrittenWork10, ClassRecords.WrittenWorkTotal, ClassRecords.WrittentWorkPercentage,ClassRecords.TaskPerformance1,ClassRecords.TaskPerformance2,ClassRecords.TaskPerformance3,ClassRecords.TaskPerformance4,ClassRecords.TaskPerformance5,ClassRecords.TaskPerformance6,ClassRecords.TaskPerformance7,ClassRecords.TaskPerformance8,ClassRecords.TaskPerformance9,ClassRecords.TaskPerformance10,ClassRecords.TaskPerformanceTotal,ClassRecords.TaskPerformancePercentage, ClassRecords.InitialGrade, ClassRecords.QuarterlyGrade, Students.SchoolYearStart, Section.Grade_Level, Subjects.SubjectName, Section.SectionName, ClassRecords.SaveasDraft,ClassRecords.SaveDraft, ClassRecords.GradingPeriod FROM ClassRecords JOIN Students ON ClassRecords.Learnersname = Students.StudentID JOIN StudentAccount ON Students.StudentID = StudentAccount.ID  JOIN Section ON Students.Grade_Level = Section.ID JOIN SectionsHandled ON Section.ID = SectionsHandled.Gradelevel JOIN SubjectsHandled ON SectionsHandled.Gradelevel = SubjectsHandled.Grade_Level JOIN SchoolAccount ON SectionsHandled.ID = SchoolAccount.ID JOIN Subjects ON SubjectsHandled.Subject = Subjects.ID WHERE StudentAccount.ID = @ID
+
+                //SELECT distinct StudentAccount.ID, StudentAccount.Lastname, StudentAccount.Firstname,  ClassRecords.WrittenWork1, ClassRecords.WrittenWork2,ClassRecords.WrittenWork3, ClassRecords.WrittenWork4, ClassRecords.WrittenWork5,ClassRecords.WrittenWork6, ClassRecords.WrittenWork7,ClassRecords.WrittenWork8,ClassRecords.WrittenWork9,ClassRecords.WrittenWork10, ClassRecords.WrittenWorkTotal, ClassRecords.WrittentWorkPercentage,ClassRecords.TaskPerformance1,ClassRecords.TaskPerformance2,ClassRecords.TaskPerformance3,ClassRecords.TaskPerformance4,ClassRecords.TaskPerformance5,ClassRecords.TaskPerformance6,ClassRecords.TaskPerformance7,ClassRecords.TaskPerformance8,ClassRecords.TaskPerformance9,ClassRecords.TaskPerformance10,ClassRecords.TaskPerformanceTotal,ClassRecords.TaskPerformancePercentage, ClassRecords.InitialGrade, ClassRecords.QuarterlyGrade, Students.SchoolYearStart, Section.Grade_Level, Subjects.SubjectName, Section.SectionName, ClassRecords.SaveasDraft,ClassRecords.SaveDraft, ClassRecords.GradingPeriod, SchoolAccount.Firstname AS 'Teacher firstname', SchoolAccount.Lastname AS 'Teacher lastname' FROM ClassRecords JOIN Students ON ClassRecords.Learnersname = Students.StudentID JOIN StudentAccount ON Students.StudentID = StudentAccount.ID  JOIN Section ON Students.Grade_Level = Section.ID JOIN SectionsHandled ON Section.ID = SectionsHandled.Gradelevel JOIN SchoolAccount ON SectionsHandled.Teacher = SchoolAccount.ID  JOIN SubjectsHandled ON ClassRecords.SubjectsName = SubjectsHandled.Subject JOIN Subjects ON SubjectsHandled.Subject = Subjects.ID WHERE StudentAccount.ID = @ID
+
+
+
                 cmd.Parameters.AddWithValue("@ID", ID);
                 var dr = cmd.ExecuteReader();
                 listReturn = PopulateReturnLists(dr);
@@ -234,15 +241,15 @@ namespace EZWebServices.Models
                         TaskPerformancePercentage = (double)dr["TaskPerformancePercentage"],
                         InitialGrade = (double)dr["InitialGrade"],
                         QuarterlyGrade = int.Parse(dr["QuarterlyGrade"].ToString()),
-                        SubjectName = dr["SubjectName"].ToString(),
+                        SubjectName = int.Parse(dr["SubjectsName"].ToString()),
                         SchoolYearStart = dr["SchoolYearStart"].ToString(),
-                        Grade_Level = int.Parse(dr["Grade_Level"].ToString()),
+                        Grade_Level = dr["Grade_Level"].ToString(),
                         SectionName = dr["SectionName"].ToString(),
-                        SaveasDraft = int.Parse(dr["SaveasDraft"].ToString()),
+                        //SaveasDraft = int.Parse(dr["SaveasDraft"].ToString()),
                         SaveDraft = int.Parse(dr["SaveDraft"].ToString()),
                         GradingPeriod = int.Parse(dr["GradingPeriod"].ToString()),
-                        TeacherFirstname = dr["Teacher firstname"].ToString(),
-                        TeacherLastname = dr["Teacher lastname"].ToString()
+                        //TeacherFirstname = dr["Teacher firstname"].ToString(),
+                        //TeacherLastname = dr["Teacher lastname"].ToString()
                     });
                 }
 

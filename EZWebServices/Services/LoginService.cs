@@ -34,6 +34,7 @@ namespace EZWebServices.Services
                             Lastname = dr["Lastname"].ToString(),
                             IsAdmin = (int)dr["IsAdmin"],
                             IsFaculty = (int)dr["IsFaculty"],
+                            Password = dr["Password"].ToString(),
                             TeacherProfile = (byte[])dr["TeacherProfile"]
 
                         };

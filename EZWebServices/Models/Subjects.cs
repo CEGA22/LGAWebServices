@@ -17,6 +17,8 @@ namespace EZWebServices.Models
 
         public int GradeLevel { get; set; }
 
+        public string Grade_Level { get; set; }
+
         public List<Subjects> GetSubjects()
         {
             var listReturn = new List<Subjects>();
@@ -25,7 +27,7 @@ namespace EZWebServices.Models
             {
                 cn.Open();
                 var cmd = cn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM Subjects";
+                cmd.CommandText = "SELECT Subjects.ID, Subjects.SubjectCode, Subjects.SubjectName, Subjects.Grade_Level, YearLevel.Grade_Level AS 'GradeLevel' FROM Subjects JOIN YearLevel ON Subjects.Grade_Level = YearLevel.ID";
                 //cmd.Parameters.AddWithValue("@ID", ID);
                 var dr = cmd.ExecuteReader();
                 listReturn = PopulateReturnList(dr);
@@ -47,7 +49,8 @@ namespace EZWebServices.Models
                     ID = int.Parse(dr["ID"].ToString()),
                     SubjectCode = dr["SubjectCode"].ToString(),
                     SubjectName = dr["SubjectName"].ToString(),
-                    GradeLevel = int.Parse(dr["Grade_Level"].ToString()),                  
+                    GradeLevel = int.Parse(dr["Grade_Level"].ToString()),
+                    Grade_Level = dr["GradeLevel"].ToString()                   
                 });
             }
 

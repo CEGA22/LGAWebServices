@@ -11,6 +11,8 @@ namespace EZWebServices.Models
     {
         public int TeacherID { get; set; }
 
+        public int SubjectID { get; set; }
+
         public string SubjectName { get; set; }
 
         public string GradeLevel { get; set; }
@@ -25,7 +27,7 @@ namespace EZWebServices.Models
             {
                 cn.Open();
                 var cmd = cn.CreateCommand();
-                cmd.CommandText = "SELECT TeacherID, Subjects.SubjectName, YearLevel.Grade_Level, Section.SectionName FROM SubjectsHandled JOIN Subjects ON SubjectsHandled.Subject = Subjects.ID JOIN Section ON SubjectsHandled.Grade_Level = Section.ID JOIN YearLevel ON Section.Grade_Level = YearLevel.ID WHERE TeacherID = @ID";
+                cmd.CommandText = " SELECT TeacherID, SubjectsHandled.Subject, Subjects.SubjectName, YearLevel.Grade_Level, Section.SectionName FROM SubjectsHandled JOIN Subjects ON SubjectsHandled.Subject = Subjects.ID JOIN Section ON SubjectsHandled.Grade_Level = Section.ID JOIN YearLevel ON Section.Grade_Level = YearLevel.ID WHERE TeacherID = @ID";
                 
                 cmd.Parameters.AddWithValue("@ID", ID);
                 var dr = cmd.ExecuteReader();
@@ -47,6 +49,7 @@ namespace EZWebServices.Models
                     listReturn.Add(new FacultySubjects
                     {
                         TeacherID = int.Parse(dr["TeacherID"].ToString()),
+                        SubjectID = int.Parse(dr["Subject"].ToString()),
                         SubjectName = dr["SubjectName"].ToString(),
                         GradeLevel = dr["Grade_Level"].ToString(), 
                         SectionName = dr["SectionName"].ToString()

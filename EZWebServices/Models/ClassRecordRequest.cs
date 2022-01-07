@@ -71,7 +71,7 @@ namespace EZWebServices.Models
 
         public string SchoolYearStart { get; set; }
 
-        public int Grade_Level { get; set; }
+        public string Grade_Level { get; set; }
 
         public string SectionName { get; set; }
 

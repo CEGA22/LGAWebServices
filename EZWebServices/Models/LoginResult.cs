@@ -19,6 +19,8 @@ namespace EZWebServices.Models
 
         public int IsFaculty { get; set; }
 
+        public string Password { get; set; }
+
         public byte[] TeacherProfile { get; set; }
 
         public string Fullname 
