@@ -20,5 +20,14 @@ namespace EZWebServices.Controllers
             var classRecord = new SectionsHandled();
             return classRecord.GetSectionsHandled(ID);
         }
+
+        [AcceptVerbs("GET", "POST")]
+        [HttpPost]
+        [Route("api/lga/sectionsHandled")]
+        public IHttpActionResult InsertSectionsHandled(SectionsHandledRequest request) 
+        {
+            var sectionsHandled = new SectionsHandled();
+            return Ok(sectionsHandled.InsertSectionsHandled(request));
+        }
     }
 }
