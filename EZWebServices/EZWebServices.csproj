@@ -253,6 +253,7 @@
     <Compile Include="Models\SchoolAccount.cs" />
     <Compile Include="Models\SchoolReuqest.cs" />
     <Compile Include="Models\SectionsHandled.cs" />
+    <Compile Include="Models\SectionsHandledRequest.cs" />
     <Compile Include="Models\StudentAccount.cs" />
     <Compile Include="Models\LoginRequest.cs" />
     <Compile Include="Models\StudentBalance.cs" />

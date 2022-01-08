@@ -20,7 +20,6 @@ namespace EZWebServices.Models
         public string SectionName { get; set; }
 
         public List<SectionsHandled> GetSectionsHandled(int ID)
-
         {
             var listReturn = new List<SectionsHandled>();
 
@@ -63,6 +62,44 @@ namespace EZWebServices.Models
 
                 throw;
             }
+        }
+
+        public bool InsertSectionsHandled(SectionsHandledRequest request) 
+        {
+            try
+            {
+                using (var cn = new SqlConnection(ConnectionHelper.LGAConnection()))
+                {
+                    cn.Open();
+                    var cmd = cn.CreateCommand();
+                    cmd.CommandText = "DELETE FROM SectionsHandled WHERE Teacher=@Teacher";
+                    cmd.Parameters.AddWithValue("@Teacher", request.TeacherId);
+                    cmd.ExecuteNonQuery();
+                }
+
+                if (!request.SectionsHandled.Any())
+                    return true;
+
+                foreach (var item in request.SectionsHandled)
+                {
+                    using (var cn = new SqlConnection(ConnectionHelper.LGAConnection()))
+                    {
+                        cn.Open();
+                        var cmd = cn.CreateCommand();
+                        cmd.CommandText = "INSERT INTO SectionsHandled VALUES(@Teacher, @Gradelevel)";
+                        cmd.Parameters.AddWithValue("@Teacher", item.TeacherID);
+                        cmd.Parameters.AddWithValue("@Gradelevel", item.GradeLevelID);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
         }
     }
 }
