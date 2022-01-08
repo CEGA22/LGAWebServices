@@ -23,6 +23,8 @@ namespace EZWebServices.Models
 
         public DateTime DateModified { get; set; }
 
+        public string SectionName { get; set; }
+
         public List<FinalGrade> GetFinalGrades(int ID)
 
         {
@@ -32,7 +34,7 @@ namespace EZWebServices.Models
             {
                 cn.Open();
                 var cmd = cn.CreateCommand();
-                cmd.CommandText = "SELECT DISTINCT FinalGrade.studentid, studentname, subjectid, subjectname, finalgrade, average, CONVERT(varchar, FinalGrade.datemodified, 100) AS 'Date modified' FROM FinalGrade JOIN ClassRecords ON FinalGrade.studentid = ClassRecords.Learnersname JOIN Students ON FinalGrade.studentid = Students.StudentID JOIN SectionsHandled ON Students.Grade_Level = SectionsHandled.Gradelevel WHERE SectionsHandled.Teacher = @ID ORDER BY FinalGrade.studentname asc";               
+                cmd.CommandText = "SELECT DISTINCT FinalGrade.studentid, studentname, subjectid, subjectname, finalgrade, average, CONVERT(varchar, FinalGrade.datemodified, 100)AS 'Date modified', Section.SectionName FROM FinalGrade JOIN ClassRecords ON FinalGrade.studentid = ClassRecords.Learnersname JOIN Students ON FinalGrade.studentid = Students.StudentID JOIN SectionsHandled ON Students.Grade_Level = SectionsHandled.Gradelevel JOIN Section ON Students.Grade_Level = Section.ID WHERE SectionsHandled.Teacher = 2 ORDER BY FinalGrade.studentname asc";               
                 cmd.Parameters.AddWithValue("@ID", ID);
                 var dr = cmd.ExecuteReader();
                 listReturn = PopulateReturnList(dr);
@@ -59,6 +61,59 @@ namespace EZWebServices.Models
                         StudentID = int.Parse(dr["studentid"].ToString()),
                         StudentName = dr["studentname"].ToString(),
                         SubjectID  = int.Parse(dr["subjectid"].ToString()),
+                        SubjectName = dr["subjectname"].ToString(),
+                        finalGrade = (double)dr["finalgrade"],
+                        Average = (double)dr["average"],
+                        DateModified = Convert.ToDateTime(dr["Date modified"].ToString()),
+                        SectionName = dr["SectionName"].ToString()
+                    });
+                }
+
+                return listReturn;
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+        }
+
+        public List<FinalGrade> GetFinalGradesStudent(int ID)
+
+        {
+            var listReturn = new List<FinalGrade>();
+
+            using (var cn = new SqlConnection(ConnectionHelper.LGAConnection()))
+            {
+                cn.Open();
+                var cmd = cn.CreateCommand();
+                cmd.CommandText = "SELECT DISTINCT FinalGrade.studentid, studentname, subjectid, subjectname, finalgrade, average, CONVERT(varchar, FinalGrade.datemodified, 100) AS 'Date modified' FROM FinalGrade JOIN ClassRecords ON FinalGrade.studentid = ClassRecords.Learnersname JOIN Students ON FinalGrade.studentid = Students.StudentID JOIN SectionsHandled ON Students.Grade_Level = SectionsHandled.Gradelevel WHERE FinalGrade.studentid = @ID ORDER BY FinalGrade.studentname asc";
+                cmd.Parameters.AddWithValue("@ID", ID);
+                var dr = cmd.ExecuteReader();
+                listReturn = PopulateReturnLists(dr);
+            }
+
+            //var highestPossibleScore = GetHighestPossibleScore(ID);
+            //listReturn.AddRange(highestPossibleScore);
+
+            return listReturn;
+        }
+
+        public List<FinalGrade> PopulateReturnLists(SqlDataReader dr)
+        {
+
+            try
+            {
+                var listReturn = new List<FinalGrade>();
+
+                while (dr.Read())
+                {
+
+                    listReturn.Add(new FinalGrade
+                    {
+                        StudentID = int.Parse(dr["studentid"].ToString()),
+                        StudentName = dr["studentname"].ToString(),
+                        SubjectID = int.Parse(dr["subjectid"].ToString()),
                         SubjectName = dr["subjectname"].ToString(),
                         finalGrade = (double)dr["finalgrade"],
                         Average = (double)dr["average"],

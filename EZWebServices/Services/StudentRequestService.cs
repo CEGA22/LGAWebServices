@@ -123,8 +123,8 @@ namespace EZWebServices.Services
             {
                 cn.Open();
                 var cmd = cn.CreateCommand();
-                cmd.CommandText = "SELECT DISTINCT Subjects.ID, SubjectName FROM Subjects JOIN Section ON Section.Grade_Level = Subjects.Grade_Level WHERE Section.Grade_Level = @GradeLevelID";
-                cmd.Parameters.AddWithValue("@GradeLevelID", gradelevelid);
+                cmd.CommandText = "SELECT DISTINCT Subjects.ID, SubjectName FROM Subjects JOIN Section ON Section.Grade_Level = Subjects.Grade_Level WHERE Section.ID = @ID";
+                cmd.Parameters.AddWithValue("@ID", gradelevelid);
                 var dr = cmd.ExecuteReader();
                 listReturn = PopulateReturnList(dr);
             }

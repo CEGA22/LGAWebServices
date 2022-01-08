@@ -18,5 +18,15 @@ namespace EZWebServices.Controllers
             var classRecord = new FinalGrade();
             return classRecord.GetFinalGrades(ID);
         }
+
+        // GET: FinalGrade
+        [AcceptVerbs("GET", "POST")]
+        [HttpGet]
+        [Route("api/lga/finalgradestudent/get_all/{ID}")]
+        public IEnumerable<FinalGrade> GetfinalGradesStudent(int ID)
+        {
+            var classRecord = new FinalGrade();
+            return classRecord.GetFinalGradesStudent(ID);
+        }
     }
 }
