@@ -18,7 +18,7 @@ namespace EZWebServices.Models
         public int GradeLevel { get; set; }
 
         public string Grade_Level { get; set; }
-
+     
         public List<Subjects> GetSubjects()
         {
             var listReturn = new List<Subjects>();
@@ -61,7 +61,7 @@ namespace EZWebServices.Models
             {
                 cn.Open();
                 var cmd = cn.CreateCommand();
-                cmd.CommandText = "SELECT SubjectsHandled.*, Subjects.SubjectCode, Subjects.SubjectName FROM SubjectsHandled INNER JOIN Subjects ON SubjectsHandled.Subject = Subjects.ID WHERE SubjectsHandled.TeacherID=@TeacherId";
+                cmd.CommandText = "SELECT SubjectsHandled.*, SchoolAccount.Lastname, SchoolAccount.Firstname, Subjects.SubjectCode, Subjects.SubjectName FROM SubjectsHandled INNER JOIN Subjects ON SubjectsHandled.Subject = Subjects.ID JOIN SchoolAccount ON SubjectsHandled.TeacherID = SchoolAccount.ID WHERE SubjectsHandled.TeacherID=@TeacherId";
                 cmd.Parameters.AddWithValue("@TeacherId", teacherId);
                 var dr = cmd.ExecuteReader();
 
@@ -79,6 +79,9 @@ namespace EZWebServices.Models
                         SubjectCode = dr["SubjectCode"].ToString(),
                         SubjectName = dr["SubjectName"].ToString(),
                         GradeLevelId = int.Parse(dr["Grade_Level"].ToString()),
+                        Lastname = dr["Lastname"].ToString(),
+                        Firstname = dr["Firstname"].ToString()
+                        
                     });
                 }
 

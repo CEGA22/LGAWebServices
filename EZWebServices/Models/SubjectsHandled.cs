@@ -22,5 +22,9 @@ namespace EZWebServices.Models
         public int GradeLevelId { get; set; }
 
         public string GradeLevel { get; set; }
+
+        public string Lastname { get; set; }
+
+        public string Firstname { get; set; }
     }
 }

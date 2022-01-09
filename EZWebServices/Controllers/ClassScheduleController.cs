@@ -31,16 +31,7 @@ namespace EZWebServices.Controllers
             return Ok(studentRequestService.CreateClassScheduleRequest(request));
         }
 
-        // GET: ClassScheduleByWeekDay
-        [AcceptVerbs("GET", "POST")]
-        [HttpGet]
-        [Route("api/lga/classSchedule/get_by_Weekday/{weekday}")]
-        public IEnumerable<ClassSchedule> GetClassSchedulesByWeekday(string weekday)
-        {
-            var studentAccount = new ClassSchedule();
-            return studentAccount.GetClassScheduleByWeekdayDetails(weekday);
-        }
-
+       
         // GET: ClassScheduleFaculty
         [AcceptVerbs("GET", "POST")]
         [HttpGet]
@@ -49,26 +40,6 @@ namespace EZWebServices.Controllers
         {
             var studentAccount = new ClassSchedule();
             return studentAccount.GetClassScheduleDetailsFaculty(ID);
-        }
-
-        // GET: ClassScheduleByWeekDayFaculty
-        [AcceptVerbs("GET", "POST")]
-        [HttpGet]
-        [Route("api/lga/classSchedule/get_by_Weekday_Faculty/{weekday}")]
-        public IEnumerable<ClassSchedule> GetClassSchedulesByWeekdayFaculty(string weekday)
-        {
-            var studentAccount = new ClassSchedule();
-            return studentAccount.GetClassScheduleByWeekdayDetailsFaculty(weekday);
-        }
-
-        // GET: ClassScheduleByWeekFaculty
-        [AcceptVerbs("GET", "POST")]
-        [HttpGet]
-        [Route("api/lga/classSchedule/get_by_Week_Faculty/{ID}/{weekday}")]
-        public IEnumerable<ClassSchedule> GetClassSchedulesByWeekFaculty(int ID, string weekday)
-        {
-            var studentAccount = new ClassSchedule();
-            return studentAccount.GetClassScheduleByWeekDetailsFaculty(ID, weekday);
         }
 
         // GET: ClassScheduleStudent
@@ -80,6 +51,38 @@ namespace EZWebServices.Controllers
             var studentAccount = new ClassSchedule();
             return studentAccount.GetClassScheduleStudent(ID);
         }
+
+        //// GET: ClassScheduleByWeekDay
+        //[AcceptVerbs("GET", "POST")]
+        //[HttpGet]
+        //[Route("api/lga/classSchedule/get_by_Weekday/{weekday}")]
+        //public IEnumerable<ClassSchedule> GetClassSchedulesByWeekday(string weekday)
+        //{
+        //    var studentAccount = new ClassSchedule();
+        //    return studentAccount.GetClassScheduleByWeekdayDetails(weekday);
+        //}
+
+        //// GET: ClassScheduleByWeekDayFaculty
+        //[AcceptVerbs("GET", "POST")]
+        //[HttpGet]
+        //[Route("api/lga/classSchedule/get_by_Weekday_Faculty/{weekday}")]
+        //public IEnumerable<ClassSchedule> GetClassSchedulesByWeekdayFaculty(string weekday)
+        //{
+        //    var studentAccount = new ClassSchedule();
+        //    return studentAccount.GetClassScheduleByWeekdayDetailsFaculty(weekday);
+        //}
+
+        //// GET: ClassScheduleByWeekFaculty
+        //[AcceptVerbs("GET", "POST")]
+        //[HttpGet]
+        //[Route("api/lga/classSchedule/get_by_Week_Faculty/{ID}/{weekday}")]
+        //public IEnumerable<ClassSchedule> GetClassSchedulesByWeekFaculty(int ID, string weekday)
+        //{
+        //    var studentAccount = new ClassSchedule();
+        //    return studentAccount.GetClassScheduleByWeekDetailsFaculty(ID, weekday);
+        //}
+
+
 
         //// GET: ClassScheduleByWeekDayStudent
         //[AcceptVerbs("GET", "POST")]
