@@ -262,6 +262,7 @@
     <Compile Include="Models\StudentLoginResult.cs" />
     <Compile Include="Models\StudentRequest.cs" />
     <Compile Include="Models\Subjects.cs" />
+    <Compile Include="Models\SubjectsHandled.cs" />
     <Compile Include="Models\SubjectsHandledRequest.cs" />
     <Compile Include="Models\TransactionHistoryRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

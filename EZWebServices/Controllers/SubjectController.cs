@@ -19,5 +19,23 @@ namespace EZWebServices.Controllers
             var classRecord = new Subjects();
             return classRecord.GetSubjects();
         }
+
+        [AcceptVerbs("GET", "POST")]
+        [HttpGet]
+        [Route("api/lga/subjects/get_by_grade_level_id/{id}")]
+        public IEnumerable<Subjects> GetSubjectsByGradeLevelId(int id)
+        {
+            var classRecord = new Subjects();
+            return classRecord.GetSubjectsByGradeLevelId(id);
+        }
+
+        [AcceptVerbs("GET", "POST")]
+        [HttpGet]
+        [Route("api/lga/subjects/get_subjects_handled/{id}")]
+        public IEnumerable<SubjectsHandled> GetSubjectsHandled(int id)
+        {
+            var subjects = new Subjects();
+            return subjects.GetSubjectsHandled(id);
+        }
     }
 }
