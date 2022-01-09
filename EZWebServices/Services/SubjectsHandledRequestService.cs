@@ -14,18 +14,35 @@ namespace EZWebServices.Services
         {
             try
             {
-                var con = new SqlConnection(ConnectionHelper.LGAConnection());
 
-                using (SqlCommand cmd = new SqlCommand("INSERT INTO SubjectsHandled VALUES(@TeacherID,@SubjectID,@GradeLevelID)", con))             
+                using (var cn = new SqlConnection(ConnectionHelper.LGAConnection()))
                 {
-                    cmd.Parameters.AddWithValue("@TeacherID", request.TeacherID);                   
-                    cmd.Parameters.AddWithValue("@SubjectID", request.SubjectID);
-                    cmd.Parameters.AddWithValue("@GradeLevelID", request.GradeLevelID);
-                    con.Open();
-                    cmd.ExecuteScalar();
-                    return true;
-                    con.Close();
+                    cn.Open();
+                    var cmd = cn.CreateCommand();
+                    cmd.CommandText = "DELETE FROM SubjectsHandled WHERE TeacherID=@TeacherID AND Grade_Level=@Grade_Level";
+                    cmd.Parameters.AddWithValue("@TeacherID ", request.TeacherID);
+                    cmd.Parameters.AddWithValue("@Grade_Level  ", request.GradeLevelID);
+                    cmd.ExecuteNonQuery();
                 }
+
+                if (!request.SubjectsHandled.Any())
+                    return true;
+
+                foreach (var item in request.SubjectsHandled)
+                {
+                    using (var cn = new SqlConnection(ConnectionHelper.LGAConnection()))
+                    {
+                        cn.Open();
+                        var cmd = cn.CreateCommand();
+                        cmd.CommandText = "INSERT INTO SubjectsHandled VALUES(@TeacherID, @Subject, @Grade_Level)";
+                        cmd.Parameters.AddWithValue("@TeacherID",item.TeacherId);
+                        cmd.Parameters.AddWithValue("@Subject", item.SubjectId);
+                        cmd.Parameters.AddWithValue("@Grade_Level", item.GradeLevelId);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                return true;
             }
             catch (Exception e)
             {
