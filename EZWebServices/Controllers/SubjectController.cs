@@ -31,11 +31,11 @@ namespace EZWebServices.Controllers
 
         [AcceptVerbs("GET", "POST")]
         [HttpGet]
-        [Route("api/lga/subjects/get_subjects_handled/{id}")]
-        public IEnumerable<SubjectsHandled> GetSubjectsHandled(int id)
+        [Route("api/lga/subjects/get_subjects_handled/{teacherId}/{gradeLevelId}")]
+        public IEnumerable<SubjectsHandled> GetSubjectsHandled(int teacherId, int gradeLevelId)
         {
             var subjects = new Subjects();
-            return subjects.GetSubjectsHandled(id);
+            return subjects.GetSubjectsHandled(teacherId, gradeLevelId);
         }
     }
 }
