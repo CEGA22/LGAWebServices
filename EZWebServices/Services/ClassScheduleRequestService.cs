@@ -10,25 +10,41 @@ namespace EZWebServices.Services
 {
     public class ClassScheduleRequestService
     {
-        public bool CreateClassScheduleRequest(ClassScheduleRequest request)
+        public bool CreateClassScheduleRequest(IEnumerable<ClassScheduleRequest> request)
         {
             try
             {
-                var con = new SqlConnection(ConnectionHelper.LGAConnection());
 
-                using (SqlCommand cmd = new SqlCommand("INSERT INTO ClassSchedule VALUES(@Subject, @StartTime, @EndTime,@TeacherID,@GradeLevel, @Weekday)", con))
+                var teacherId = request.Select(x => x.TeacherID).FirstOrDefault();
+
+                using (var cn = new SqlConnection(ConnectionHelper.LGAConnection()))
                 {
-                    cmd.Parameters.AddWithValue("@Subject", request.Subject);
-                    cmd.Parameters.AddWithValue("@StartTime", request.StartTime);
-                    cmd.Parameters.AddWithValue("@EndTime", request.EndTime);
-                    cmd.Parameters.AddWithValue("@TeacherID", request.TeacherID);
-                    cmd.Parameters.AddWithValue("@GradeLevel", request.GradeLevel);
-                    cmd.Parameters.AddWithValue("@Weekday", request.WeekDay);                 
-                    con.Open();
+                    cn.Open();
+                    var cmd = cn.CreateCommand();
+                    cmd.CommandText = "DELETE FROM ClassSchedule WHERE Teacher=@TeacherID";
+                    cmd.Parameters.AddWithValue("@TeacherID ", teacherId);
+                    cmd.ExecuteNonQuery();
+                }
 
-                    cmd.ExecuteScalar();
+                foreach (var item in request)
+                {
 
-                    con.Close();
+                    var con = new SqlConnection(ConnectionHelper.LGAConnection());
+
+                    using (SqlCommand cmd = new SqlCommand("INSERT INTO ClassSchedule VALUES(@Subject, @StartTime, @EndTime,@TeacherID,@GradeLevel, @Weekday)", con))
+                    {
+                        cmd.Parameters.AddWithValue("@Subject", item.Subject);
+                        cmd.Parameters.AddWithValue("@StartTime", item.StartTime);
+                        cmd.Parameters.AddWithValue("@EndTime", item.EndTime);
+                        cmd.Parameters.AddWithValue("@TeacherID", item.TeacherID);
+                        cmd.Parameters.AddWithValue("@GradeLevel", item.GradeLevel);
+                        cmd.Parameters.AddWithValue("@Weekday", item.WeekDay);
+                        con.Open();
+
+                        cmd.ExecuteScalar();
+
+                        con.Close();
+                    }
                 }
                 return true;
             }

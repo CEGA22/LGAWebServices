@@ -25,7 +25,7 @@ namespace EZWebServices.Controllers
         [AcceptVerbs("GET", "POST")]
         [HttpPost]
         [Route("api/lga/classSchedule/information")]
-        public IHttpActionResult CreateClassScheduleInformation(ClassScheduleRequest request)
+        public IHttpActionResult CreateClassScheduleInformation(IEnumerable<ClassScheduleRequest> request)
         {
             var studentRequestService = new ClassScheduleRequestService();
             return Ok(studentRequestService.CreateClassScheduleRequest(request));
