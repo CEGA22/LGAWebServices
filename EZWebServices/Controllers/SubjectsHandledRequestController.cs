@@ -13,7 +13,7 @@ namespace EZWebServices.Controllers
         // GET: SubjectHandledRequest
         [AcceptVerbs("GET", "POST")]
         [HttpPost]
-        [Route("api/lga/subjectsHandled/information")]
+        [Route("api/lga/subjects/subjectsHandled/")]
         public IHttpActionResult CreateSubjectsHandledInformation(SubjectsHandledRequest request)
         {
             var studentRequestService = new SubjectsHandledRequestService();

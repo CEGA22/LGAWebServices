@@ -53,7 +53,7 @@ namespace EZWebServices.Models
             return listReturn;
         }
 
-        public IEnumerable<SubjectsHandled> GetSubjectsHandled(int teacherId) 
+        public IEnumerable<SubjectsHandled> GetSubjectsHandled(int teacherId, int gradeLevelId) 
         {
             IEnumerable<SubjectsHandled> listReturn = Enumerable.Empty<SubjectsHandled>();
 
@@ -61,8 +61,9 @@ namespace EZWebServices.Models
             {
                 cn.Open();
                 var cmd = cn.CreateCommand();
-                cmd.CommandText = "SELECT SubjectsHandled.*, SchoolAccount.Lastname, SchoolAccount.Firstname, Subjects.SubjectCode, Subjects.SubjectName FROM SubjectsHandled INNER JOIN Subjects ON SubjectsHandled.Subject = Subjects.ID JOIN SchoolAccount ON SubjectsHandled.TeacherID = SchoolAccount.ID WHERE SubjectsHandled.TeacherID=@TeacherId";
+                cmd.CommandText = "SELECT SubjectsHandled.*, SchoolAccount.Lastname, SchoolAccount.Firstname, Subjects.SubjectCode, Subjects.SubjectName FROM SubjectsHandled INNER JOIN Subjects ON SubjectsHandled.Subject = Subjects.ID JOIN SchoolAccount ON SubjectsHandled.TeacherID = SchoolAccount.ID WHERE SubjectsHandled.TeacherID=@TeacherId AND SubjectsHandled.Grade_Level=@Grade_Level";
                 cmd.Parameters.AddWithValue("@TeacherId", teacherId);
+                cmd.Parameters.AddWithValue("@Grade_Level ", gradeLevelId);
                 var dr = cmd.ExecuteReader();
 
                 var itemsToReturn = new List<SubjectsHandled>();
