@@ -26,5 +26,7 @@ namespace EZWebServices.Models
         public string Lastname { get; set; }
 
         public string Firstname { get; set; }
+
+        public string SectionName { get; set; }
     }
 }

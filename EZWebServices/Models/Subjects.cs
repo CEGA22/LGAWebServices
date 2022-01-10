@@ -110,5 +110,47 @@ namespace EZWebServices.Models
 
             return listReturn;
         }
+
+
+        public List<SubjectsHandled> GetSubjectsHandledAll()
+        {
+            var listReturn = new List<SubjectsHandled>();
+
+            using (var cn = new SqlConnection(ConnectionHelper.LGAConnection()))
+            {
+                cn.Open();
+                var cmd = cn.CreateCommand();
+                cmd.CommandText = "SELECT SubjectsHandled.*, SchoolAccount.Lastname, SchoolAccount.Firstname, Section.SectionName, Subjects.SubjectCode, Subjects.SubjectName FROM SubjectsHandled INNER JOIN Subjects ON SubjectsHandled.Subject = Subjects.ID JOIN SchoolAccount ON SubjectsHandled.TeacherID = SchoolAccount.ID JOIN Section ON SubjectsHandled.Grade_Level = Section.ID";               
+                var dr = cmd.ExecuteReader();
+                listReturn = PopulateReturnLists(dr);
+            }
+
+            return listReturn;
+        }
+
+        public List<SubjectsHandled> PopulateReturnLists(SqlDataReader dr)
+        {
+
+            var listReturn = new List<SubjectsHandled>();
+
+            while (dr.Read())
+            {
+
+                listReturn.Add(new SubjectsHandled
+                {
+                    Id = int.Parse(dr["ID"].ToString()),
+                    TeacherId = int.Parse(dr["TeacherID"].ToString()),
+                    SubjectId = int.Parse(dr["Subject"].ToString()),
+                    SubjectCode = dr["SubjectCode"].ToString(),
+                    SubjectName = dr["SubjectName"].ToString(),
+                    GradeLevelId = int.Parse(dr["Grade_Level"].ToString()),
+                    Lastname = dr["Lastname"].ToString(),
+                    Firstname = dr["Firstname"].ToString(),
+                    SectionName = dr["SectionName"].ToString()
+                });
+            }
+
+            return listReturn;
+        }
     }
 }
