@@ -46,5 +46,16 @@ namespace EZWebServices.Controllers
             var subjects = new Subjects();
             return subjects.GetSubjectsHandledAll();
         }
+
+        [AcceptVerbs("GET", "POST")]
+        [HttpGet]
+        [Route("api/lga/subjects/get_All_UnHandledsubjects")]
+        public IEnumerable<UnhandledSubjects> GetAllUnhandledSubjects()
+        {
+            var subjects = new Subjects();
+            return subjects.GetAllUnhandledSubjects();
+        }
+
+
     }
 }

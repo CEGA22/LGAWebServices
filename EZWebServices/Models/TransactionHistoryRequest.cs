@@ -17,16 +17,18 @@ namespace EZWebServices.Models
 
         public int Transactionid { get; set; }
 
+        public string ReferenceNumber { get; set; }
+
         public int Studentid { get; set; }
 
         public int Amount { get; set; }
 
         public DateTime TransactionDate { get; set; }
 
+        public DateTime DateRecorded { get; set; }
+
         public string Note { get; set; }
 
-        public int Balance { get; set; }
-
-        public int SchoolYear { get; set; }
+        public int Balance { get; set; }   
     }
 }

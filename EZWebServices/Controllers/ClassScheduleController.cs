@@ -32,6 +32,25 @@ namespace EZWebServices.Controllers
         }
 
        
+        [AcceptVerbs("GET", "POST")]
+        [HttpPost]
+        [Route("api/lga/classSchedule/update_information")]
+        public IHttpActionResult UpdateClassScheduleInformation(IEnumerable<ClassScheduleRequest> request)
+        {
+            var classScheduleRequestService = new ClassScheduleRequestService();
+            return Ok(classScheduleRequestService.UpdateClassScheduleRequest(request));
+        }
+
+        [AcceptVerbs("GET", "POST")]
+        [HttpGet]
+        [Route("api/lga/classSchedule/delete_information/{teacherId}/{subjectId}/{gradeLevel}")]
+        public IHttpActionResult DeleteClassScheduleInformation(int teacherId, int subjectId, int gradeLevel)
+        {
+            var classScheduleRequestService = new ClassScheduleRequestService();
+            return Ok(classScheduleRequestService.DeleteClassScheduleRequest(teacherId, subjectId, gradeLevel));
+        }
+
+
         // GET: ClassScheduleFaculty
         [AcceptVerbs("GET", "POST")]
         [HttpGet]
@@ -81,8 +100,6 @@ namespace EZWebServices.Controllers
         //    var studentAccount = new ClassSchedule();
         //    return studentAccount.GetClassScheduleByWeekDetailsFaculty(ID, weekday);
         //}
-
-
 
         //// GET: ClassScheduleByWeekDayStudent
         //[AcceptVerbs("GET", "POST")]

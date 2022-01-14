@@ -30,15 +30,17 @@ namespace EZWebServices.Services
         public int CreateStudentTransactionHistory(TransactionHistoryRequest request)
         {
             decimal studentId = 0;
-            //DateTime da = DateTime.UtcNow;
+            DateTime da = DateTime.UtcNow;
 
             var con = new SqlConnection(ConnectionHelper.LGAConnection());
 
-            using (SqlCommand cmd = new SqlCommand("INSERT INTO TransactionHistory VALUES(@StudentID,@Amount, @DateTime, @Note);SELECT SCOPE_IDENTITY()", con))
+            using (SqlCommand cmd = new SqlCommand("INSERT INTO TransactionHistory VALUES(@ReferenceNumber, @StudentID, @Amount, @TransactionDate, @DateRecorded, @Note);SELECT SCOPE_IDENTITY()", con))
             {
+                cmd.Parameters.AddWithValue("@ReferenceNumber", request.ReferenceNumber);
                 cmd.Parameters.AddWithValue("@StudentID", request.Studentid);
                 cmd.Parameters.AddWithValue("@Amount", request.Amount);
-                cmd.Parameters.AddWithValue("@DateTime", request.TransactionDate);
+                cmd.Parameters.AddWithValue("@TransactionDate", request.TransactionDate);
+                cmd.Parameters.AddWithValue("@DateRecorded", request.DateRecorded);
                 cmd.Parameters.AddWithValue("@Note", request.Note);
                 con.Open();
 
@@ -76,7 +78,7 @@ namespace EZWebServices.Services
             {
                 cn.Open();
                 var cmd = cn.CreateCommand();
-                cmd.CommandText = "SELECT TransactionHistory.TransactionId, StudentAccount.StudentNumber, StudentAccount.Lastname, StudentAccount.Middlename, StudentAccount.Firstname, TransactionHistory.Amount, TransactionHistory.TransactionDate, TransactionHistory.Note, StudentBalance.SchoolYear FROM TransactionHistory JOIN StudentAccount ON TransactionHistory.StudentId = StudentAccount.ID JOIN StudentBalance ON TransactionHistory.StudentId = StudentBalance.StudentID ORDER BY TransactionDate DESC";
+                cmd.CommandText = "SELECT TransactionHistory.TransactionId AS 'Transaction ID', TransactionHistory.ReferenceNumber AS 'Reference Number', StudentAccount.StudentNumber AS 'Student Number', StudentAccount.Lastname, StudentAccount.Middlename, StudentAccount.Firstname, TransactionHistory.Amount, TransactionHistory.TransactionDate AS 'Transaction Date', TransactionHistory.DateRecorded AS 'Date Recorded', TransactionHistory.Note FROM TransactionHistory JOIN StudentAccount ON TransactionHistory.StudentId = StudentAccount.ID JOIN StudentBalance ON TransactionHistory.StudentId = StudentBalance.StudentID ORDER BY TransactionDate DESC";
                 var dr = cmd.ExecuteReader();
                 listReturn = PopulateReturnList(dr);
             }
@@ -96,15 +98,16 @@ namespace EZWebServices.Services
 
                     listReturn.Add(new TransactionHistoryRequest
                     {
-                        Transactionid = int.Parse(dr["TransactionId"].ToString()),
-                        StudentNumber = dr["StudentNumber"].ToString(),
+                        Transactionid = int.Parse(dr["Transaction ID"].ToString()),
+                        ReferenceNumber = dr["Reference Number"].ToString(),
+                        StudentNumber = dr["Student Number"].ToString(),
                         Lastname = dr["Lastname"].ToString(),
                         Middlename = dr["Middlename"].ToString(),
                         Firstname = dr["Firstname"].ToString(),
                         Amount = int.Parse(dr["Amount"].ToString()),
-                        TransactionDate = Convert.ToDateTime(dr["TransactionDate"].ToString()),
-                        Note = dr["Note"].ToString(),
-                        SchoolYear = int.Parse(dr["SchoolYear"].ToString()),
+                        TransactionDate = Convert.ToDateTime(dr["Transaction Date"].ToString()),
+                        DateRecorded = Convert.ToDateTime(dr["Date Recorded"].ToString()),
+                        Note = dr["Note"].ToString(),                      
                     });
                 }
 

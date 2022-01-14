@@ -153,5 +153,40 @@ namespace EZWebServices.Models
 
             return listReturn;
         }
+
+        public List<UnhandledSubjects> GetAllUnhandledSubjects()
+        {
+            var listReturn = new List<UnhandledSubjects>();
+
+            using (var cn = new SqlConnection(ConnectionHelper.LGAConnection()))
+            {
+                cn.Open();
+                var cmd = cn.CreateCommand();
+                cmd.CommandText = "SELECT Subjects.SubjectName, YearLevel.Grade_Level FROM Subjects JOIN YearLevel ON Subjects.Grade_Level = YearLevel.ID WHERE Subjects.ID not in ( SELECT SubjectsHandled.Subject FROM SubjectsHandled LEFT OUTER JOIN Subjects ON SubjectsHandled.Subject = Subjects.ID)";
+                var dr = cmd.ExecuteReader();
+                listReturn = populateReturnLists(dr);
+            }
+
+            return listReturn;
+        }
+
+        public List<UnhandledSubjects> populateReturnLists(SqlDataReader dr)
+        {
+
+            var listReturn = new List<UnhandledSubjects>();
+
+            while (dr.Read())
+            {
+
+                listReturn.Add(new UnhandledSubjects
+                {
+                    
+                    SubjectName = dr["SubjectName"].ToString(),
+                    GradeLevel = dr["Grade_Level"].ToString(),                   
+                });
+            }
+
+            return listReturn;
+        }
     }
 }
