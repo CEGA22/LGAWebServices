@@ -162,7 +162,7 @@ namespace EZWebServices.Models
             {
                 cn.Open();
                 var cmd = cn.CreateCommand();
-                cmd.CommandText = "SELECT Subjects.SubjectName, YearLevel.Grade_Level FROM Subjects JOIN YearLevel ON Subjects.Grade_Level = YearLevel.ID WHERE Subjects.ID not in ( SELECT SubjectsHandled.Subject FROM SubjectsHandled LEFT OUTER JOIN Subjects ON SubjectsHandled.Subject = Subjects.ID)";
+                cmd.CommandText = "SELECT Subjects.SubjectName, YearLevel.Grade_Level,Section.SectionName FROM Subjects JOIN YearLevel ON Subjects.Grade_Level = YearLevel.ID JOIN Section ON YearLevel.ID = Section.Grade_Level WHERE Subjects.ID not in (SELECT SubjectsHandled.Subject FROM SubjectsHandled LEFT OUTER JOIN Subjects ON SubjectsHandled.Subject = Subjects.ID)";
                 var dr = cmd.ExecuteReader();
                 listReturn = populateReturnLists(dr);
             }
@@ -182,7 +182,8 @@ namespace EZWebServices.Models
                 {
                     
                     SubjectName = dr["SubjectName"].ToString(),
-                    GradeLevel = dr["Grade_Level"].ToString(),                   
+                    GradeLevel = dr["Grade_Level"].ToString(),
+                    SectionName = dr["SectionName"].ToString()
                 });
             }
 
