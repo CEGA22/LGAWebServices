@@ -290,6 +290,8 @@
     <None Include="Properties\PublishProfiles\Default Settings2.pubxml" />
     <None Include="Properties\PublishProfiles\Default Settings3.pubxml" />
     <None Include="Properties\PublishProfiles\Default Settings4.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings5.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings6.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
